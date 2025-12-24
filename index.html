@@ -134,7 +134,7 @@
 
         /* Dark theme */
         body.dark-theme {
-            --primary-color: #7c3aed;
+            --primary-color: #6600ff;
             --secondary-color: #a855f7;
             --text-color: #f0f0f0;
             --text-light: #b0b0b0;
@@ -241,26 +241,102 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
+            background: #000;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background-image: radial-gradient(
+                circle at 50% 50%,
+                #0000 0,
+                #0000 2px,
+                hsl(0 0 4%) 2px
+            );
+            background-size: 8px 8px;
+            animation: hiii 5s ease-in-out infinite;
+            --f: blur(3em) brightness(9);
+            pointer-events: none;
+        }
+
+        @keyframes hiii {
+            0% { backdrop-filter: var(--f) hue-rotate(0deg); }
+            25% { backdrop-filter: var(--f) hue-rotate(-25deg); }
+            28% { backdrop-filter: var(--f) hue-rotate(0deg); }
+            32% { backdrop-filter: var(--f) hue-rotate(-20deg); }
+            39% { backdrop-filter: var(--f) hue-rotate(0deg); }
+            40% { backdrop-filter: var(--f) hue-rotate(-20deg); }
+            41% { backdrop-filter: var(--f) hue-rotate(0deg); }
+            42% { backdrop-filter: var(--f) hue-rotate(-25deg); }
+            44% { backdrop-filter: var(--f) hue-rotate(0deg); }
+            58% { backdrop-filter: var(--f) hue-rotate(-20deg); }
+            64% { backdrop-filter: var(--f) hue-rotate(0deg); }
+            80% { backdrop-filter: var(--f) hue-rotate(-25deg); }
+            to { backdrop-filter: var(--f) hue-rotate(0deg); }
         }
 
         .hero::before {
-            content: '';
+            content: "";
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: moveBackground 20s linear infinite;
+            inset: -145%;
+            rotate: -45deg;
+            z-index: 0;
+            --c: #fa0;
+            --c1: #f00;
+            background-image: radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 117.5px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 126px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 150px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 150px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 75px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 253px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 253px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 126.5px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 204px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 204px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 102px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 134px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 134px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 67px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 179px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 179px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 89.5px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 299px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 299px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 149.5px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 215px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 215px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 107.5px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 281px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 281px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 140.5px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 158px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 158px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 79px, var(--c1) 100%, #0000 150%),
+                radial-gradient(4px 100px at 0px 210px, var(--c), #0000),
+                radial-gradient(4px 100px at 300px 210px, var(--c), #0000),
+                radial-gradient(3px 4px at 150px 105px, var(--c1) 100%, #0000 150%);
+            background-size: 300px 235px, 300px 235px, 300px 235px, 300px 252px, 300px 252px, 300px 252px, 300px 150px, 300px 150px, 300px 150px, 300px 253px, 300px 253px, 300px 253px, 300px 204px, 300px 204px, 300px 204px, 300px 134px, 300px 134px, 300px 134px, 300px 179px, 300px 179px, 300px 179px, 300px 299px, 300px 299px, 300px 299px, 300px 215px, 300px 215px, 300px 215px, 300px 281px, 300px 281px, 300px 281px, 300px 158px, 300px 158px, 300px 158px, 300px 210px, 300px 210px, 300px 210px;
+            animation: hi 150s linear infinite;
         }
 
-        @keyframes moveBackground {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        @keyframes hi {
+            0% {
+                background-position: 0px 220px, 3px 220px, 151.5px 337.5px, 25px 24px, 28px 24px, 176.5px 150px, 50px 16px, 53px 16px, 201.5px 91px, 75px 224px, 78px 224px, 226.5px 350.5px, 100px 19px, 103px 19px, 251.5px 121px, 125px 120px, 128px 120px, 276.5px 187px, 150px 31px, 153px 31px, 301.5px 120.5px, 175px 235px, 178px 235px, 326.5px 384.5px, 200px 121px, 203px 121px, 351.5px 228.5px, 225px 224px, 228px 224px, 376.5px 364.5px, 250px 26px, 253px 26px, 401.5px 105px, 275px 75px, 278px 75px, 426.5px 180px;
+            }
+            to {
+                background-position: 0px 6800px, 3px 6800px, 151.5px 6917.5px, 25px 13632px, 28px 13632px, 176.5px 13758px, 50px 5416px, 53px 5416px, 201.5px 5491px, 75px 17175px, 78px 17175px, 226.5px 17301.5px, 100px 5119px, 103px 5119px, 251.5px 5221px, 125px 8428px, 128px 8428px, 276.5px 8495px, 150px 9876px, 153px 9876px, 301.5px 9965.5px, 175px 13391px, 178px 13391px, 326.5px 13540.5px, 200px 14741px, 203px 14741px, 351.5px 14848.5px, 225px 18770px, 228px 18770px, 376.5px 18910.5px, 250px 5082px, 253px 5082px, 401.5px 5161px, 275px 6375px, 278px 6375px, 426.5px 6480px;
+            }
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             animation: fadeInUp 1s ease;
         }
 
@@ -463,16 +539,54 @@
             margin-top: 2rem;
         }
 
-        .social-links a {
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: transform 0.3s ease, color 0.3s ease;
+        .group {
+            position: relative;
         }
 
-        .social-links a:hover {
-            transform: scale(1.2);
-            color: var(--secondary-color);
+        .group a {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .group svg {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease, stroke 0.3s ease;
+            stroke: var(--primary-color);
+        }
+
+        .group:hover svg {
+            transform: scale(1.25);
+            stroke: var(--secondary-color);
+        }
+
+        .group span {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            scale: 0;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+            background: var(--bg-white);
+            font-size: 0.875rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: all 0.3s ease-in-out;
+            white-space: nowrap;
+            color: var(--text-color);
+        }
+
+        .group:hover span {
+            scale: 1;
         }
 
         /* Footer */
@@ -517,6 +631,7 @@
             </div>
         </div>
     </div>
+
     <!-- Navigation Menu -->
     <nav>
         <ul>
@@ -619,10 +734,45 @@
         <div class="contact-content">
             <p>Here are ways you can contact me!</p>
             <div class="social-links">
-                <a href="https://github.com/AnthonyQi">GitHub</a>
-                <a href="mailto:aq.951841@gmail.com">Email</a>
-                <a href="www.linkedin.com/in/anthony-qi-516b8a288">LinkedIn</a>
-                <a href="TheCupNoodle">Instagram</a>
+                <div class="group">
+                    <a href="https://github.com/AnthonyQi" title="GitHub" target="_blank">
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
+                    <span>GitHub</span>
+                </div>
+
+                <div class="group">
+                    <a href="mailto:aq.951841@gmail.com" title="Email" target="_blank">
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </a>
+                    <span>Email</span>
+                </div>
+
+                <div class="group">
+                    <a href="https://www.linkedin.com/in/anthony-qi-516b8a288" title="LinkedIn" target="_blank">
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"></path>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <span>LinkedIn</span>
+                </div>
+
+                <div class="group">
+                    <a href="https://instagram.com/TheCupNoodle" title="Instagram" target="_blank">
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <circle cx="17.5" cy="6.5" r="1.5"></circle>
+                        </svg>
+                    </a>
+                    <span>Instagram</span>
+                </div>
             </div>
         </div>
     </section>

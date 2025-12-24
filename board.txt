@@ -4,3 +4,4 @@ for each skill i add, ill add a separate page that explains wut i have done to
 explore/learn deeply about this skill. Perhaps a couple images to back it up. 
 I think I might link them to the projet pages.
 
+add view counter that tracks ip's
