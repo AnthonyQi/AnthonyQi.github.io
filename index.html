@@ -10,107 +10,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            animation: fadeOut 0.5s ease 2.5s forwards;
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-                visibility: visible;
-            }
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        .loader-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-        }
-
-        .dot {
-            display: inline-block;
-            animation: blink 1.4s infinite;
-        }
-
-        .dot:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes blink {
-            0%, 60%, 100% {
-                opacity: 0.5;
-            }
-            30% {
-                opacity: 1;
-            }
-        }
-
-        .progress-bar {
-            width: 200px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: white;
-            width: 0%;
-            animation: progress 2.5s ease-in-out forwards;
-        }
-
-        @keyframes progress {
-            0% { width: 0%; }
-            50% { width: 70%; }
-            100% { width: 100%; }
-        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -361,6 +260,20 @@
             font-size: 1.5rem;
             margin-bottom: 2rem;
             animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        #typewriter {
+            white-space: pre-wrap;
+        }
+
+        .cursor {
+            margin-left: 0;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         .cta-button {
@@ -619,19 +532,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loader-container">
-            <div class="spinner"></div>
-            <div class="loading-text">
-                Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- Navigation Menu -->
     <nav>
         <ul>
@@ -650,7 +550,10 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Hi, I'm Anthony Qi</h1>
-            <p>Developer & Artist</p>
+            <p>
+                <span id="typewriter"></span>
+                <span class="cursor">|</span>
+            </p>
             <a href="#about" class="cta-button">Learn More</a>
         </div>
     </section>
@@ -847,6 +750,52 @@
         document.querySelectorAll('.project-card, .gallery-item').forEach(el => {
             observer.observe(el);
         });
+        
+        // Typing effect (loops every ~30s)
+        const textList = [
+            "Developer & Artist",
+            "Computer Science @ UMD",
+            "Building cool stuff"
+        ];
+
+        const typingSpeed = 75;
+        const eraseSpeed = 40;
+        const displayDuration = 30000; // 30 seconds
+
+        const el = document.getElementById("typewriter");
+
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeLoop() {
+            const currentText = textList[textIndex];
+
+            if (!isDeleting && charIndex < currentText.length) {
+                el.textContent += currentText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeLoop, typingSpeed);
+            } 
+            else if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeLoop();
+                }, displayDuration);
+            } 
+            else if (isDeleting && charIndex > 0) {
+                el.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(typeLoop, eraseSpeed);
+            } 
+            else {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % textList.length;
+                setTimeout(typeLoop, typingSpeed);
+            }
+        }
+
+        window.addEventListener("load", typeLoop);
+
     </script>
 </body>
 </html>
