@@ -1,0 +1,118 @@
+/* ============================================
+   GLOBAL STYLES & RESET
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   CSS VARIABLES - THEME COLORS
+   ============================================ */
+
+/* Light theme (default) */
+:root {
+    --primary-color: #0013be; 
+    --secondary-color: #db0000;
+    --text-color: #333;
+    --text-light: #666;
+    --bg-light: #f0f0f0;
+    --bg-white: white;
+    --nav-bg: rgba(255, 255, 255, 0.67);
+    --shadow: rgba(0,0,0,0.1);
+}
+
+/* Dark theme */
+body.dark-theme {
+    --primary-color: #6600ff;
+    --secondary-color: #a855f7;
+    --text-color: #f0f0f0;
+    --text-light: #b0b0b0;
+    --bg-light: #2a2a2a;
+    --bg-white: #1a1a1a;
+    --nav-bg: rgba(26, 26, 26, 0.67);
+    --shadow: rgba(0,0,0,0.3);
+    background-color: #0f0f0f;
+    color: var(--text-color);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+section {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-white);
+}
+
+main {
+    width: 100%;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 3rem 1rem;
+    }
+}
