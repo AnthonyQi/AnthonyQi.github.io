@@ -179,7 +179,7 @@
         .hero::before {
             content: "";
             position: absolute;
-            inset: -145%;
+            inset: -50%;
             rotate: -45deg;
             z-index: 0;
             --c: #fa0;
@@ -236,8 +236,13 @@
         .hero-content {
             position: relative;
             z-index: 2;
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            gap: 1rem;
             animation: fadeInUp 1s ease;
         }
+
 
         @keyframes fadeInUp {
             from {
@@ -262,12 +267,33 @@
             animation: fadeInUp 1s ease 0.4s both;
         }
 
-        #typewriter {
-            white-space: pre-wrap;
+        .ticker-container {
+            overflow: hidden;
+            white-space: nowrap;
+            border-left: 2px solid white;
+            border-right: 2px solid white;
+            padding: 0.5rem 0;
+            max-width: 80%;
+            font-family: monospace;
+            font-size: 1rem;
+            display: inline-block;
+            vertical-align: middle;
         }
 
-        .cursor {
-            margin-left: 0;
+        .ticker-text {
+            display: inline-block;
+            padding-left: 50%;
+            animation: ticker 25s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ticker-container::after {
+            content: "|";
+            margin-left: 0rem;
             animation: blink 1s infinite;
         }
 
@@ -278,11 +304,12 @@
 
         .cta-button {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             background: white;
             color: var(--primary-color);
             text-decoration: none;
             border-radius: 50px;
+            font-size: 1rem;
             font-weight: bold;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: fadeInUp 1s ease 0.6s both;
@@ -550,10 +577,11 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Hi, I'm Anthony Qi</h1>
-            <p>
-                <span id="typewriter"></span>
-                <span class="cursor">|</span>
-            </p>
+            <div class="ticker-container">
+                <div class="ticker-text">
+                    <span> Developer & Artist • Computer Science @ UMD </span>
+                </div>
+            </div>
             <a href="#about" class="cta-button">Learn More</a>
         </div>
     </section>
@@ -603,6 +631,33 @@
                 <div class="project-content">
                     <h3>Battery Update Project (C) | Oct. 2025</h3>
                     <p>An innovative tool that solves real problems. Features include X, Y, and Z.</p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🎮</div>
+                <div class="project-content">
+                    <h3>Project Three</h3>
+                    <p>A fun interactive experience built with creativity and code.</p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🎮</div>
+                <div class="project-content">
+                    <h3>Project Three</h3>
+                    <p>A fun interactive experience built with creativity and code.</p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🎮</div>
+                <div class="project-content">
+                    <h3>Project Three</h3>
+                    <p>A fun interactive experience built with creativity and code.</p>
                     <a href="#" class="project-link">View Project →</a>
                 </div>
             </div>
@@ -750,52 +805,6 @@
         document.querySelectorAll('.project-card, .gallery-item').forEach(el => {
             observer.observe(el);
         });
-        
-        // Typing effect (loops every ~30s)
-        const textList = [
-            "Developer & Artist",
-            "Computer Science @ UMD",
-            "Building cool stuff"
-        ];
-
-        const typingSpeed = 75;
-        const eraseSpeed = 40;
-        const displayDuration = 30000; // 30 seconds
-
-        const el = document.getElementById("typewriter");
-
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        function typeLoop() {
-            const currentText = textList[textIndex];
-
-            if (!isDeleting && charIndex < currentText.length) {
-                el.textContent += currentText.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeLoop, typingSpeed);
-            } 
-            else if (!isDeleting && charIndex === currentText.length) {
-                setTimeout(() => {
-                    isDeleting = true;
-                    typeLoop();
-                }, displayDuration);
-            } 
-            else if (isDeleting && charIndex > 0) {
-                el.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(typeLoop, eraseSpeed);
-            } 
-            else {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % textList.length;
-                setTimeout(typeLoop, typingSpeed);
-            }
-        }
-
-        window.addEventListener("load", typeLoop);
-
     </script>
 </body>
 </html>
