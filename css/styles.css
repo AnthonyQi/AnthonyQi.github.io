@@ -13,28 +13,47 @@
    ============================================ */
 
 /* Light theme (default) */
+/* Light theme - Ghibli inspired */
 :root {
-    --primary-color: #0013be; 
-    --secondary-color: #db0000;
-    --text-color: #333;
-    --text-light: #666;
-    --bg-light: #f0f0f0;
-    --bg-white: white;
-    --nav-bg: rgba(255, 255, 255, 0.67);
-    --shadow: rgba(0,0,0,0.1);
+    /* Primary colors - warm & earthy */
+    --primary-color: #6b8e6f;
+    --secondary-color: #a8a882;
+    
+    /* Text colors */
+    --text-color: #3d3d3d;
+    --text-light: #7a7a7a;
+    
+    /* Background colors */
+    --bg-light: #f5f3f0;
+    --bg-white: #faf9f7;
+    
+    /* UI elements */
+    --nav-bg: rgba(250, 249, 247, 0.95);
+    --shadow: rgba(0, 0, 0, 0.08);
+    
+    /* Accent colors - soft & natural */
+    --accent-warm: #d4a574; 
+    --accent-cool: #8b9d9f; 
 }
 
-/* Dark theme */
+/* Dark theme - Keep Ghibli feel */
 body.dark-theme {
-    --primary-color: #6600ff;
-    --secondary-color: #a855f7;
-    --text-color: #f0f0f0;
-    --text-light: #b0b0b0;
-    --bg-light: #2a2a2a;
-    --bg-white: #1a1a1a;
-    --nav-bg: rgba(26, 26, 26, 0.67);
-    --shadow: rgba(0,0,0,0.3);
-    background-color: #0f0f0f;
+    --primary-color: #a8b8a3;
+    --secondary-color: #c9c4b3;
+    
+    --text-color: #e8e6e1;
+    --text-light: #b8b4a8;
+    
+    --bg-light: #2a2925;
+    --bg-white: #1f1d1a;
+    
+    --nav-bg: rgba(31, 29, 26, 0.95);
+    --shadow: rgba(0, 0, 0, 0.3);
+    
+    --accent-warm: #c9a878;
+    --accent-cool: #a8b8b8;
+    
+    background-color: #1a1815;
     color: var(--text-color);
 }
 
