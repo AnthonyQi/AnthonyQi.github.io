@@ -13,13 +13,6 @@
     position: relative;
     overflow: hidden;
     background: linear-gradient(90deg, #3e5545 0%, #1a2a1f 50%, #3e5545 100%);
-    background-size: 200% 200%;
-    animation: waves 6s ease-in-out infinite;
-}
-
-@keyframes waves {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
 }
 
 .hero-content {

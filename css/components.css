@@ -55,23 +55,41 @@ nav.navbar {
    ============================================ */
 
 .cta-button {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    background: white;
-    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: transparent;
+    color: #faf9f7;
     text-decoration: none;
-    border-radius: 50px;
+    border: none;
+    cursor: pointer;
     font-size: 1rem;
-    font-weight: bold;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInUp 1s ease 0.6s both;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    outline: 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.cta-button::before {
+    content: "";
+    display: inline-block;
+    height: 2px;
+    margin-right: 10px;
+    background-color: var(--primary-color);
+    transition: all 0.42s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 0;
+}
+
+.cta-button:hover::before {
+    background-color: var(--primary-color);
+    width: 3rem;
 }
 
 .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    color: var(--primary-color);
 }
-
 /* ============================================
    SKILL TAGS COMPONENT
    ============================================ */

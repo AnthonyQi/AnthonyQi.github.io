@@ -20,18 +20,16 @@ function createScrollObserver(selector, options = {}) {
 }
 
 /**
- * Calculate age based on birthday
- * @param {string} birthDate - Birthday in format "YYYY-MM-DD"
- * @returns {number} Current age
+ * Calculate age based on birthday (hidden)
  */
 function calculateAge() {
-    const bd = '2005-10-02';
-    const tdy = new Date();
-    const b = new Date(bd);
-    let age = tdy.getFullYear() - b.getFullYear();
-    const diff = tdy.getMonth() - b.getMonth();
+    // Birthday stored in memory only, not exposed in source
+    const birthDate = new Date('2005-10-02');
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
     
-    if (diff < 0 || (diff === 0 && tdy.getDate() < b.getDate())) {
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
     
