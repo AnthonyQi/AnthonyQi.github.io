@@ -112,6 +112,12 @@
     margin-top: 2rem;
 }
 
+.projects-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
 /* ============================================
    ART GALLERY SECTION
    ============================================ */
