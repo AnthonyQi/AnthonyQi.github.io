@@ -10,13 +10,13 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 const raindrops = [];
-const rainCount = 1000;
+const rainCount = 100;
 
 class Raindrop {
     constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height - canvas.height;
-        this.speed = Math.random() * 20 + 10;
+        this.speed = Math.random() * 100 + 10;
         this.width = 2;
         this.height = 10;
     }
@@ -41,12 +41,12 @@ for (let i = 0; i < rainCount; i++) {
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
     raindrops.forEach(drop => {
         drop.update();
         drop.draw();
     });
-    
+
     requestAnimationFrame(animate);
 }
 

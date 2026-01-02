@@ -18,41 +18,41 @@
     /* Primary colors - warm & earthy */
     --primary-color: #6b8e6f;
     --secondary-color: #a8a882;
-    
+
     /* Text colors */
     --text-color: #3d3d3d;
     --text-light: #7a7a7a;
-    
+
     /* Background colors */
     --bg-light: #f5f3f0;
     --bg-white: #faf9f7;
-    
+
     /* UI elements */
     --nav-bg: rgba(250, 249, 247, 0.95);
     --shadow: rgba(0, 0, 0, 0.08);
-    
+
     /* Accent colors - soft & natural */
-    --accent-warm: #d4a574; 
-    --accent-cool: #8b9d9f; 
+    --accent-warm: #d4a574;
+    --accent-cool: #8b9d9f;
 }
 
 /* Dark theme - Keep Ghibli feel */
 body.dark-theme {
     --primary-color: #a8b8a3;
     --secondary-color: #c9c4b3;
-    
+
     --text-color: #e8e6e1;
     --text-light: #b8b4a8;
-    
+
     --bg-light: #2a2925;
     --bg-white: #1f1d1a;
-    
+
     --nav-bg: rgba(31, 29, 26, 0.95);
     --shadow: rgba(0, 0, 0, 0.3);
-    
+
     --accent-warm: #c9a878;
     --accent-cool: #a8b8b8;
-    
+
     background-color: #1a1815;
     color: var(--text-color);
 }
@@ -100,6 +100,7 @@ main {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -107,8 +108,13 @@ main {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideDown {
@@ -116,6 +122,7 @@ main {
         transform: translateY(-100%);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;

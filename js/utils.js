@@ -28,11 +28,11 @@ function calculateAge() {
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
-    
+
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    
+
     return age;
 }
 
@@ -40,7 +40,7 @@ function calculateAge() {
 document.getElementById('age').textContent = calculateAge();
 
 // Export at the very end
-window.Utils = { 
+window.Utils = {
     createScrollObserver,
-    calculateAge 
+    calculateAge
 };

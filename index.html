@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,23 +8,38 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- External stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
 </head>
+
 <body>
     <!-- Navigation Menu -->
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li><a href="#home" class="nav-link">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
-            <li><a href="#art" class="nav-link">Art</a></li>
-            <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <svg class="triangle" viewBox="0 0 100 100" width="40" height="40">
+            <defs>
+                <linearGradient id="triangleGradient">
+                    <stop offset="0%" style="stop-color:#78ff87;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#ffffe0;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#ff931f;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <polygon points="50,20 85,80 15,80" fill="none" stroke="url(#triangleGradient)" stroke-width="2"
+                class="triangle-poly" />
+        </svg>
+    </button>
+
+    <!-- Navigation menu (hidden by default) -->
+    <ul class="nav-list" id="nav-list">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#art" class="nav-link">Art</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
 
     <!-- Theme Toggle Button -->
     <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">🌙</button>
@@ -33,12 +49,14 @@
         <!-- Hero Section -->
         <section id="home" class="section hero">
             <canvas id="rain-canvas"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
             <div class="hero-content">
                 <h1>Hi, I'm Anthony Qi</h1>
                 <div class="ticker-container">
                     <div class="ticker-text">
-                        <span> Developer & Artist • Computer Science @ UMD </span>
+                        <span> Developer & Artist • Computer Science @ UMD •</span>
+                        <span> Developer & Artist • Computer Science @ UMD •</span>
+                        <span> Developer & Artist • Computer Science @ UMD •</span>
                     </div>
                 </div>
                 <a href="#about" class="cta-button">Learn More</a>
@@ -50,9 +68,12 @@
             <h2>About Me</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Hi, I'm Anthony, currently a University of Maryland Student majoring in Computer Science, looking to double major in Immersive Media Design.</p>
-                    <p>I enjoy exploring the intersection of technology and creativity, building projects that are both technically impressive and visually appealing. Check out some of my projects that I have worked on!</p>
-                    
+                    <p>Hi, I'm Anthony, currently a University of Maryland Student majoring in Computer Science, looking
+                        to double major in Immersive Media Design.</p>
+                    <p>I enjoy exploring the intersection of technology and creativity, building projects that are both
+                        technically impressive and visually appealing. Check out some of my projects that I have worked
+                        on!</p>
+
                     <div class="skills">
                         <span class="skill-tag">C</span>
                         <span class="skill-tag">C#</span>
@@ -70,8 +91,16 @@
         <section id="projects" class="section projects">
             <h2>My Projects</h2>
             <div class="projects-content">
-                <p>I have worked on a variety of projects over my <span id="age">--</span> years of existence.</p>
-                <a href="projects.html" class="cta-button">View All Projects →</a>
+                <p>
+                    I’ve worked on a lot of projects over my <span id="age">--</span> years. Early on, they were mostly
+                    small experiments and ideas I wanted to try out. Around 2018, computer science became something
+                    I started taking seriously.<br>
+                    Since then, I’ve built and attempted a wide range of projects. Some are finished, some were
+                    scrapped, and others taught me more by failing than succeeding. Many of these projects were done
+                    independently, while others involved working with classmates or collaborators, and all of them
+                    shaped how I approach programming and new challenges.
+                </p>
+                <a href="projects.html" class="cta-button">View All Projects</a>
             </div>
         </section>
 
@@ -90,14 +119,17 @@
 
         <!-- Contact Section -->
         <section id="contact" class="section contact">
-            <h2>Get In Touch</h2>        
+            <h2>Get In Touch</h2>
             <div class="contact-content">
                 <p>Here are ways you can contact me!</p>
                 <div class="social-links">
                     <div class="group">
                         <a href="https://github.com/AnthonyQi" title="GitHub" target="_blank">
-                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                                fill="none" viewBox="0 0 24 24">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                </path>
                             </svg>
                         </a>
                         <span>GitHub</span>
@@ -105,7 +137,8 @@
 
                     <div class="group">
                         <a href="mailto:aq.951841@gmail.com" title="Email" target="_blank">
-                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                                fill="none" viewBox="0 0 24 24">
                                 <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                             </svg>
@@ -115,8 +148,11 @@
 
                     <div class="group">
                         <a href="https://www.linkedin.com/in/anthony-qi-516b8a288" title="LinkedIn" target="_blank">
-                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"></path>
+                            <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor"
+                                fill="none" viewBox="0 0 24 24">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z">
+                                </path>
                                 <circle cx="4" cy="4" r="2"></circle>
                             </svg>
                         </a>
@@ -139,4 +175,5 @@
     <script src="js/main.js"></script>
     <script src="js/rain.js"></script>
 </body>
+
 </html>
