@@ -166,6 +166,7 @@ footer {
     padding: 0.5rem 2rem;
 }
 
+
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -189,7 +190,7 @@ footer {
     }
     
     .ticker-container {
-        max-width: 90%;
+        max-width: 30%;
         font-size: 0.75rem;
     }
     
