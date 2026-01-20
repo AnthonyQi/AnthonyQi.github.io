@@ -95,11 +95,17 @@ const overrideRepo = {
         html_url: 'https://github.com/AnthonyQi/Proj8',
         image: '../assets/images/Proj8.png',
     },
-    'Proj3': {
-        name: 'Circular Deque Implementation',
-        description: 'Generic circular deque data structure with add/remove operations from both ends, plus utility methods for palindrome checking and sliding window maximum.',
-        html_url: 'https://github.com/AnthonyQi/Proj3',
-        image: '../assets/images/Proj3.png',
+    'MyList': {
+        name: 'Custom ArrayList and Stack Implementation',
+        description: 'Java implementation of a generic ArrayList with dynamic resizing, and a Stack class built on top of it following LIFO principles.',
+        html_url: 'https://github.com/AnthonyQi/MyList',
+        image: '../assets/images/MyList.png',
+    },
+    'Zoo': {
+        name: 'Zoo Class/Managment Implementation',
+        description: 'Java application for managing a zoo with animals (lions, eagles, snakes) and habitats, including placement, removal, sorting, and filtering by animal type and characteristics.',
+        html_url: 'https://github.com/AnthonyQi/Zoo',
+        image: '../assets/images/Zoo.png',
     },
 };
 // Use manual favorites for carousel
