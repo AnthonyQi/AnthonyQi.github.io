@@ -140,21 +140,32 @@ const overrideRepo = {
     'Clock': {
         description: 'Followed a tutorial from my IMDM101 professor to create a clock, then extended it by adding second-by-second ticking with both sound and movement, and a rotating global light that syncs with the user\’s local time to simulate daylight.',
         language: 'C# (Unity)',
-        image: '/assets/images/'
+        image: '../assets/images/clock.gif'
     },
     'RollABall': {
         name: 'Roll a Ball Minigame',
         description: 'Followed a tutorial provided by my IMDM101 professor to create a minigame that had the player controlling a ball to collect "coins" while avoiding an NPC that would constantly be chasing the player.',
         language: 'C# (Unity)',
-        image: '/assets/images/'
+        image: '../assets/images/roll.gif'
     },
     'IMD_Final': {
         name: 'Road to the Olympics',
         description: 'Worked closely with classmates to create a track and field simulation. Implemented two events: 100m dash and long jump, both featuring engaging controls. I focused on the menu, scene transitions, and all UI, while acting as team lead, keeping the project on schedule and assisting teammates with Git and collaboration.',
         language: ['C# (Unity)', 'Git'],
-        image: '/assets/images/'
+        image: '../assets/images/'
     },
-
+    'PhotoManager': {
+        name: 'Photo Manager Implementation',
+        description: 'Java application for managing a collection of photos with features to add/remove photos, add comments, load from files, sort by date, and generate HTML pages displaying the photos.',
+        language: 'Java',
+        image: '../assets/images/PhotoManager.png'
+    },
+    'Assignment_4': {
+        name: 'Echoes in the Rain',
+        description: 'Created a prototype with a partner where the player walks through a rainy forest following a spirit to a hotel. Inside, the player can explore, read notes, and eventually reach the rooftop. The game is unfinished and has been scrapped. The prototype was meant to showcase scene changes, animation, ambience, environment, and storytelling, focusing on a narrative about the player searching for closure with someone they lost.',
+        language: ['C# (Unity)', 'Git'],
+        image: '../assets/images/rain.gif',
+    }
 };
 // Use manual favorites for carousel
 favoriteRepos = manualFavorites;

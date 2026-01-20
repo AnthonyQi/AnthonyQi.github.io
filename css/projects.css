@@ -97,18 +97,9 @@ body.dark-theme .subtitle {
     }
 }
 
-body.dark-theme .project-card {
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(168, 184, 163, 0.1);
-}
-
 .project-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-body.dark-theme .project-card:hover {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .project-image {
@@ -249,10 +240,14 @@ body.dark-theme .project-card:hover {
 .carousel-slide {
     min-width: 100%;
     flex-shrink: 0;
+    display: flex;
+    align-items: stretch;
 }
 
 .carousel-slide .project-card {
-    height: 300px;
+    width: 100%;
+    height: auto;
+    min-height: 350px;
 }
 
 .carousel-btn {
@@ -273,10 +268,6 @@ body.dark-theme .project-card:hover {
 
 .carousel-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(107, 142, 111, 0.3);
-}
-
-body.dark-theme .carousel-btn {
     box-shadow: 0 4px 15px rgba(107, 142, 111, 0.3);
 }
 
@@ -316,11 +307,6 @@ body.dark-theme .carousel-btn {
     cursor: pointer;
 }
 
-body.dark-theme .project-list-item {
-    background: var(--bg-light);
-    border: 1px solid rgba(168, 184, 163, 0.1);
-}
-
 .project-list-item::before {
     content: '';
     position: absolute;
@@ -337,10 +323,6 @@ body.dark-theme .project-list-item {
 .project-list-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-body.dark-theme .project-list-item:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .project-list-item:hover .project-list-overlay {
