@@ -8,36 +8,36 @@ const manualFavorites = [
         name: 'EL_Malloc & Matrix Optimization',
         description: 'Explicit list memory allocator implementing malloc/free with block splitting and merging, plus cache-optimized and multi-threaded matrix transpose multiplication with performance benchmarking.',
         language: 'C',
-        html_url: 'https://github.com/AnthonyQi/el_malloc_matata',
-        image: '../images/p5-code/malloc.png',
+        html_url: 'https://gitshare.me/repo/89a9c808-dd1d-4ff6-b0e1-043c4f0b3e70',
+        image: '../assets/images/p5-code/malloc.png',
     },
     {
         name: 'Battery Meter & Treeset Implementation',
         description: 'C project featuring bit-level LCD display control for a battery meter simulator, debugging puzzles using gdb, and a binary search tree-based set data structure with save/load functionality. Please contact me if you want to see the code.',
         language: 'C',
         html_url: 'https://github.com/AnthonyQi/BatteryMeter_TreeSet',
-        image: '../images/p2-code/batt_meter.png',
+        image: '../assets/images/p2-code/batt_meter.png',
     },
     {
         name: 'Battery Meter Project Assembly Translation',
         description: 'Manually translated C code into its x86-64 assembly implementation of battery meter display functions using bit manipulation and struct field access, plus reverse engineering and solving a binary executable puzzle using gdb without source code.',
         language: 'x86 Assembly (AT&T Syntax)',
         html_url: 'https://github.com/AnthonyQi/batteryASM',
-        image: '../images/p3-code/puzzlebox_asm.png',
+        image: '../assets/images/p3-code/puzzlebox_asm.png',
     },
     {
         name: 'Binary Search Tree Implmentation',
         description: 'Java BST with insertion, deletion (with preferred successor option), and comprehensive tree property checks (perfect, complete, full) plus recursive and non-recursive traversal methods (inorder, preorder, postorder, level-order).',
         language: 'Java',
         html_url: 'https://github.com/AnthonyQi/Proj7',
-        image: '../images/Proj7.png',
+        image: '../assets/images/Proj7.png',
     },
     {
         name: 'Doubly Linked List with Deque, Queue, and Stack implementation',
         description: 'Java implementation of a doubly linked list with iterator support and insertion sort, plus Deque, Queue, and Stack data structures built on top with O(1) operations.',
         language: 'Java',
         html_url: 'https://github.com/AnthonyQi/Proj5',
-        image: '../images/Proj5,png',
+        image: '../assets/images/Proj5.png',
     }
 ];
 
@@ -46,29 +46,62 @@ const privateProjects = [
         name: 'Stock Visualizer',
         description: 'C program for loading stock price data from files, analyzing highs/lows, computing optimal buy/sell times, and generating ASCII-based graphical plots with customizable time ranges and visualization heights. Please contact me if you want to see the code.',
         language: 'C',
-    },
-    {
-        name: 'Battery Meter & Treeset Implementation',
-        description: 'C project featuring bit-level LCD display control for a battery meter simulator, debugging puzzles using gdb, and a binary search tree-based set data structure with save/load functionality. Please contact me if you want to see the code.',
-        language: 'C',
-    },
-    {
-        name: 'Battery Meter Project Assembly Translation',
-        description: 'Manually translated C code into its x86-64 assembly implementation of battery meter display functions using bit manipulation and struct field access, plus reverse engineering and solving a binary executable puzzle using gdb without source code.',
-        language: 'x86 Assembly (AT&T Syntax)',
+        html_url: 'https://github.com/AnthonyQi/StockVisualizer',
+        image: '../assets/images/p1-code/Stock_Visualizer_Graph.png',
     },
     {
         name: 'Shellac: Unix Shell',
         description: 'Interactive command-line shell implementation in C supporting foreground/background job execution, I/O redirection (input/output files), job management, and built-in commands using fork(), exec(), and process control system calls.',
         language: 'C',
+        html_url: 'https://github.com/AnthonyQi/shellac',
+        image: '../assets/images/p4-code/shellac_cmds.png',
     },
-    {
-        name: 'EL_Malloc & Matrix Optimization',
-        description: 'Explicit list memory allocator implementing malloc/free with block splitting and merging, plus cache-optimized and multi-threaded matrix transpose multiplication with performance benchmarking.',
-        language: 'C',
-    }
-
 ]
+
+const overrideRepo = {
+    'Proj3': {
+        name: 'Circular Deque Implementation',
+        description: 'Generic circular deque data structure with add/remove operations from both ends, plus utility methods for palindrome checking and sliding window maximum.',
+        html_url: 'https://github.com/AnthonyQi/Proj3',
+        image: '../assets/images/Proj3.png',
+    },
+    'Proj4': {
+        name: 'Priority List and Search/Sort Utilities',
+        description: 'Java implementation of a generic priority list maintaining sorted order with custom comparators, plus utility classes for merging priority lists and performing bidirectional search and sort algorithms.',
+        html_url: 'https://github.com/AnthonyQi/Proj3',
+        image: '../assets/images/Proj4.png',
+    },
+    'Proj5': {
+        name: 'Doubly Linked List with Deque, Queue, and Stack implementation',
+        description: 'Java implementation of a doubly linked list with iterator support and insertion sort, plus Deque, Queue, and Stack data structures built on top with O(1) operations.',
+        html_url: 'https://github.com/AnthonyQi/Proj5',
+        image: '../assets/images/Proj5.png',
+    },
+    'Proj6': {
+        name: 'Hash Map and Hash Set Implementation',
+        description: 'Java implementations of a chained hash map with separate chaining collision resolution and a hash set using open addressing with linear probing, both with dynamic resizing.',
+        html_url: 'https://github.com/AnthonyQi/Proj6',
+        image: '../assets/images/Proj6.png',
+    },
+    'Proj7': {
+        name: 'Binary Search Tree Implmentation',
+        description: 'Java BST with insertion, deletion (with preferred successor option), and comprehensive tree property checks (perfect, complete, full) plus recursive and non-recursive traversal methods (inorder, preorder, postorder, level-order).',
+        html_url: 'https://github.com/AnthonyQi/Proj7',
+        image: '../assets/images/Proj7.png',
+    },
+    'Proj8': {
+        name: 'Heap and Priority Queue Implementation',
+        description: 'Java implementation of heap data structures (min and max heap) with heapify and heap sort algorithms, plus a priority queue built on top with insert and remove operations.',
+        html_url: 'https://github.com/AnthonyQi/Proj8',
+        image: '../assets/images/Proj8.png',
+    },
+    'Proj3': {
+        name: 'Circular Deque Implementation',
+        description: 'Generic circular deque data structure with add/remove operations from both ends, plus utility methods for palindrome checking and sliding window maximum.',
+        html_url: 'https://github.com/AnthonyQi/Proj3',
+        image: '../assets/images/Proj3.png',
+    },
+};
 // Use manual favorites for carousel
 favoriteRepos = manualFavorites;
 
@@ -76,25 +109,40 @@ favoriteRepos = manualFavorites;
 fetch(`https://api.github.com/users/${username}/repos?sort=stars&per_page=100`)
     .then(res => res.json())
     .then(repos => {
-        allRepos = repos.filter(repo => !repo.fork).sort((a, b) => b.stargazers_count - a.stargazers_count);
+        // Get all favorite repo names to filter them out
+        const favoriteNames = new Set(manualFavorites.map(p => p.html_url));
+        
+        allRepos = repos
+            .filter(repo => !repo.fork && !favoriteNames.has(repo.html_url))
+            .sort((a, b) => b.stargazers_count - a.stargazers_count);
+        
+        // Apply manual overrides
+        allRepos = allRepos.map(repo => {
+            if (overrideRepo[repo.name]) {
+                return { ...repo, ...overrideRepo[repo.name] };
+            }
+            return repo;
+        });
+        
+        allRepos = [...manualFavorites, ...privateProjects, ...allRepos];
         renderCarousel();
         renderAllProjects();
     })
     .catch(err => console.error('Error fetching repos:', err));
-
 function renderCarousel() {
     const track = document.getElementById('carouselTrack');
     track.innerHTML = favoriteRepos.map((repo, index) => `
         <div class="carousel-slide" data-index="${index}">
             <div class="project-card">
-                <div class="project-image"></div>
+                <div class="project-image" style="background-image: url('${repo.image}'); background-size: cover; background-position: center;"></div>
                 <div class="project-overlay">
                     <div class="project-info">
                         <h3>${repo.name}</h3>
-                        <p>${repo.description || 'No description available'}</p>
+                        <div class="description-box">
+                            <p>${repo.description || 'No description available'}</p>
+                        </div>
                         <div class="project-tags">
                             ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
-                            ${repo.stargazers_count > 0 ? `<span class="tag">⭐ ${repo.stargazers_count}</span>` : ''}
                         </div>
                     </div>
                     <a href="${repo.html_url}" target="_blank" class="project-button">View on GitHub →</a>
@@ -110,6 +158,7 @@ function renderAllProjects() {
     const list = document.getElementById('projectsList');
     list.innerHTML = allRepos.map(repo => `
         <div class="project-list-item">
+            ${repo.image ? `<div class="project-list-image" style="background-image: url('${repo.image}'); background-size: cover; background-position: center;"></div>` : ''}
             <div class="project-list-content">
                 <h3>${repo.name}</h3>
                 <p>${repo.description || 'No description available'}</p>
@@ -117,7 +166,7 @@ function renderAllProjects() {
                     ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
                 </div>
             </div>
-            <a href="${repo.html_url}" target="_blank" class="project-button">View on GitHub →</a>
+            ${repo.html_url ? `<a href="${repo.html_url}" target="_blank" class="project-button">View on GitHub →</a>` : `<span class="project-button" style="opacity: 0.5; cursor: default;">Private Project</span>`}
         </div>
     `).join('');
 }
@@ -145,7 +194,7 @@ function setupCarouselButtons() {
     }
 
     function startAutoRotate() {
-        autoRotateTimer = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        autoRotateTimer = setInterval(nextSlide, 7000); // Change slide every 5 seconds
     }
 
     function resetAutoRotate() {
