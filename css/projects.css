@@ -506,3 +506,28 @@ body.dark-theme .project-list-item:hover {
     border-radius: 4px;
     background-color: #ddd;
 }
+
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: none;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(135deg, #6b8e6f 0%, #7a9c7e 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 142, 111, 0.3);
+    z-index: 100;
+}
+
+.back-to-top.show {
+    display: block;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(107, 142, 111, 0.4);
+}

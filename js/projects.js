@@ -133,9 +133,27 @@ const overrideRepo = {
     },
     'Alchemy_Roguelike': {
         name: 'Ingredient Inferno',
-        description: 'UMD Fall 2025 Game Jam attempted submission. This game was a 3 day effort to create a game that reflected the theme of the jam: alchemy. We decided to go with an alchemy roguelike. Due to time constraints this game was scrapped',
-        image: ''
-    }
+        description: 'UMD Fall 2025 Game Jam project. A 3-day team effort to build an alchemy-themed roguelike inspired by the jam\’s theme. I collaborated closely with two other developers on core gameplay systems and mechanics. The project was ultimately scrapped due to time constraints, but it was a valuable rapid-prototyping and teamwork experience.',
+        language: ['C# (Unity)', 'Git'],
+        image: '/assets/images/ii_shoot.gif'
+    },
+    'Clock': {
+        description: 'Followed a tutorial from my IMDM101 professor to create a clock, then extended it by adding second-by-second ticking with both sound and movement, and a rotating global light that syncs with the user\’s local time to simulate daylight.',
+        language: 'C# (Unity)',
+        image: '/assets/images/'
+    },
+    'RollABall': {
+        name: 'Roll a Ball Minigame',
+        description: 'Followed a tutorial provided by my IMDM101 professor to create a minigame that had the player controlling a ball to collect "coins" while avoiding an NPC that would constantly be chasing the player.',
+        language: 'C# (Unity)',
+        image: '/assets/images/'
+    },
+    'IMD_Final': {
+        name: 'Road to the Olympics',
+        description: 'Worked closely with classmates to create a track and field simulation. Implemented two events: 100m dash and long jump, both featuring engaging controls. I focused on the menu, scene transitions, and all UI, while acting as team lead, keeping the project on schedule and assisting teammates with Git and collaboration.',
+        language: ['C# (Unity)', 'Git'],
+        image: '/assets/images/'
+    },
 
 };
 // Use manual favorites for carousel
@@ -178,7 +196,13 @@ function renderCarousel() {
                             <p>${repo.description || 'No description available'}</p>
                         </div>
                         <div class="project-tags">
-                            ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
+                            ${repo.language ? 
+                                (Array.isArray(repo.language) 
+                                    ? repo.language.map(lang => `<span class="tag">${lang}</span>`).join('')
+                                    : `<span class="tag">${repo.language}</span>`
+                                )
+                            : ''
+                            }
                         </div>
                     </div>
                     <a href="${repo.html_url}" target="_blank" class="project-button">View on GitHub →</a>
@@ -199,7 +223,13 @@ function renderAllProjects() {
                 <h3>${repo.name}</h3>
                 <p>${repo.description || 'No description available'}</p>
                 <div class="project-tags">
-                    ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
+                    ${repo.language ? 
+                        (Array.isArray(repo.language) 
+                            ? repo.language.map(lang => `<span class="tag">${lang}</span>`).join('')
+                            : `<span class="tag">${repo.language}</span>`
+                        )
+                    : ''
+                    }
                 </div>
             </div>
             ${repo.html_url ? `<a href="${repo.html_url}" target="_blank" class="project-button">View on GitHub →</a>` : `<span class="project-button" style="opacity: 0.5; cursor: default;">Private Project</span>`}
@@ -244,3 +274,19 @@ function setupCarouselButtons() {
     // Start auto-rotation when page loads
     startAutoRotate();
 }
+
+// Back to top button
+const backToTopBtn = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+});
+
+backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});

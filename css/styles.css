@@ -12,8 +12,6 @@
    CSS VARIABLES - THEME COLORS
    ============================================ */
 
-/* Light theme (default) */
-/* Light theme - Ghibli inspired */
 :root {
     /* Primary colors - warm & earthy */
     --primary-color: #6b8e6f;
@@ -34,27 +32,6 @@
     /* Accent colors - soft & natural */
     --accent-warm: #d4a574;
     --accent-cool: #8b9d9f;
-}
-
-/* Dark theme - Keep Ghibli feel */
-body.dark-theme {
-    --primary-color: #a8b8a3;
-    --secondary-color: #c9c4b3;
-
-    --text-color: #e8e6e1;
-    --text-light: #b8b4a8;
-
-    --bg-light: #2a2925;
-    --bg-white: #1f1d1a;
-
-    --nav-bg: rgba(31, 29, 26, 0.95);
-    --shadow: rgba(0, 0, 0, 0.3);
-
-    --accent-warm: #c9a878;
-    --accent-cool: #a8b8b8;
-
-    background-color: #1a1815;
-    color: var(--text-color);
 }
 
 /* ============================================
