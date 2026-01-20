@@ -107,6 +107,36 @@ const overrideRepo = {
         html_url: 'https://github.com/AnthonyQi/Zoo',
         image: '../assets/images/Zoo.png',
     },
+    'DiagramSystems': {
+        name: 'Diagram System Implementation',
+        description: 'Java system for creating and animating ASCII art diagrams (flags, bars, combinations) with support for 2D array operations like rotation and combining multiple diagrams.',
+        html_url: 'https://github.com/AnthonyQi/DiagramSystems',
+        image: '../assets/images/DiagramSystems.png',
+    },
+    'ArrayUtilities': {
+        name: 'Array Utilities Implementation',
+        description: 'Java utility class with static methods for array operations including filtering by range, converting to strings, rotating left/right, and filtering StringBuffer arrays by length.',
+        html_url: 'https://github.com/AnthonyQi/ArrayUtilities',
+        image: '../assets/images/ArrayUtilities.png',
+    },
+    'DrawingApp': {
+        name: 'Drawing App Implementation',
+        description: 'Java utility for generating text-based ASCII art patterns including rectangles, flags, and horizontal/vertical color bars.',
+        html_url: 'https://github.com/AnthonyQi/DrawingApp',
+        image: '../assets/images/DrawingApp.png',
+    },
+    'PassportClass': {
+        name: 'Passport Class Implementation',
+        description: 'Java class representing a person\'s passport with name validation, stamp tracking, comparison methods, and normalization utilities.',
+        html_url: 'https://github.com/AnthonyQi/PassportClass',
+        image: '../assets/images/PassportClass.png',
+    },
+    'Alchemy_Roguelike': {
+        name: 'Ingredient Inferno',
+        description: 'UMD Fall 2025 Game Jam attempted submission. This game was a 3 day effort to create a game that reflected the theme of the jam: alchemy. We decided to go with an alchemy roguelike. Due to time constraints this game was scrapped',
+        image: ''
+    }
+
 };
 // Use manual favorites for carousel
 favoriteRepos = manualFavorites;
