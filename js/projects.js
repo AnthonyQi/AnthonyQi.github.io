@@ -5,42 +5,70 @@ let favoriteRepos = [];
 // MANUALLY ADD YOUR FAVORITE PROJECTS HERE
 const manualFavorites = [
     {
-        name: 'Project 1',
-        description: 'Description of your favorite project',
-        language: 'JavaScript',
-        html_url: 'https://github.com/AnthonyQi/project-1',
-        stargazers_count: 0
-    },
-    {
-        name: 'Project 2',
-        description: 'Another favorite project description',
+        name: 'EL_Malloc & Matrix Optimization',
+        description: 'Explicit list memory allocator implementing malloc/free with block splitting and merging, plus cache-optimized and multi-threaded matrix transpose multiplication with performance benchmarking.',
         language: 'C',
-        html_url: 'https://github.com/AnthonyQi/project-2',
-        stargazers_count: 0
+        html_url: 'https://github.com/AnthonyQi/el_malloc_matata',
+        image: '../images/p5-code/malloc.png',
     },
     {
-        name: 'Project 3',
-        description: 'Third favorite project',
-        language: 'Python',
-        html_url: 'https://github.com/AnthonyQi/project-3',
-        stargazers_count: 0
+        name: 'Battery Meter & Treeset Implementation',
+        description: 'C project featuring bit-level LCD display control for a battery meter simulator, debugging puzzles using gdb, and a binary search tree-based set data structure with save/load functionality. Please contact me if you want to see the code.',
+        language: 'C',
+        html_url: 'https://github.com/AnthonyQi/BatteryMeter_TreeSet',
+        image: '../images/p2-code/batt_meter.png',
     },
     {
-        name: 'Project 4',
-        description: 'Fourth favorite project',
-        language: 'C#',
-        html_url: 'https://github.com/AnthonyQi/project-4',
-        stargazers_count: 0
+        name: 'Battery Meter Project Assembly Translation',
+        description: 'Manually translated C code into its x86-64 assembly implementation of battery meter display functions using bit manipulation and struct field access, plus reverse engineering and solving a binary executable puzzle using gdb without source code.',
+        language: 'x86 Assembly (AT&T Syntax)',
+        html_url: 'https://github.com/AnthonyQi/batteryASM',
+        image: '../images/p3-code/puzzlebox_asm.png',
     },
     {
-        name: 'Project 5',
-        description: 'Fifth favorite project',
+        name: 'Binary Search Tree Implmentation',
+        description: 'Java BST with insertion, deletion (with preferred successor option), and comprehensive tree property checks (perfect, complete, full) plus recursive and non-recursive traversal methods (inorder, preorder, postorder, level-order).',
         language: 'Java',
-        html_url: 'https://github.com/AnthonyQi/project-5',
-        stargazers_count: 0
+        html_url: 'https://github.com/AnthonyQi/Proj7',
+        image: '../images/Proj7.png',
+    },
+    {
+        name: 'Doubly Linked List with Deque, Queue, and Stack implementation',
+        description: 'Java implementation of a doubly linked list with iterator support and insertion sort, plus Deque, Queue, and Stack data structures built on top with O(1) operations.',
+        language: 'Java',
+        html_url: 'https://github.com/AnthonyQi/Proj5',
+        image: '../images/Proj5,png',
     }
 ];
 
+const privateProjects = [
+    {
+        name: 'Stock Visualizer',
+        description: 'C program for loading stock price data from files, analyzing highs/lows, computing optimal buy/sell times, and generating ASCII-based graphical plots with customizable time ranges and visualization heights. Please contact me if you want to see the code.',
+        language: 'C',
+    },
+    {
+        name: 'Battery Meter & Treeset Implementation',
+        description: 'C project featuring bit-level LCD display control for a battery meter simulator, debugging puzzles using gdb, and a binary search tree-based set data structure with save/load functionality. Please contact me if you want to see the code.',
+        language: 'C',
+    },
+    {
+        name: 'Battery Meter Project Assembly Translation',
+        description: 'Manually translated C code into its x86-64 assembly implementation of battery meter display functions using bit manipulation and struct field access, plus reverse engineering and solving a binary executable puzzle using gdb without source code.',
+        language: 'x86 Assembly (AT&T Syntax)',
+    },
+    {
+        name: 'Shellac: Unix Shell',
+        description: 'Interactive command-line shell implementation in C supporting foreground/background job execution, I/O redirection (input/output files), job management, and built-in commands using fork(), exec(), and process control system calls.',
+        language: 'C',
+    },
+    {
+        name: 'EL_Malloc & Matrix Optimization',
+        description: 'Explicit list memory allocator implementing malloc/free with block splitting and merging, plus cache-optimized and multi-threaded matrix transpose multiplication with performance benchmarking.',
+        language: 'C',
+    }
+
+]
 // Use manual favorites for carousel
 favoriteRepos = manualFavorites;
 
@@ -87,7 +115,6 @@ function renderAllProjects() {
                 <p>${repo.description || 'No description available'}</p>
                 <div class="project-tags">
                     ${repo.language ? `<span class="tag">${repo.language}</span>` : ''}
-                    ${repo.stargazers_count > 0 ? `<span class="tag">⭐ ${repo.stargazers_count}</span>` : ''}
                 </div>
             </div>
             <a href="${repo.html_url}" target="_blank" class="project-button">View on GitHub →</a>
