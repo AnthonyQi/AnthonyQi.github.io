@@ -134,3 +134,28 @@ main {
         padding: 3rem 1rem;
     }
 }
+
+/* ============================================
+   LIST STYLES
+   ============================================ */
+
+ul {
+    margin-left: 2rem;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+li {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-family: 'Lato', sans-serif;
+}
+
+li strong {
+    color: var(--primary-color);
+
+}
+
+.centered {
+    text-align: center;
+}
