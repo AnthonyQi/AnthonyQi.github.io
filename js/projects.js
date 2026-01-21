@@ -152,7 +152,7 @@ const overrideRepo = {
         name: 'Road to the Olympics',
         description: 'Worked closely with classmates to create a track and field simulation. Implemented two events: 100m dash and long jump, both featuring engaging controls. I focused on the menu, scene transitions, and all UI, while acting as team lead, keeping the project on schedule and assisting teammates with Git and collaboration.',
         language: ['C# (Unity)', 'Git'],
-        image: '../assets/images/'
+        image: '../assets/images/race.gif'
     },
     'PhotoManager': {
         name: 'Photo Manager Implementation',
@@ -165,7 +165,12 @@ const overrideRepo = {
         description: 'Created a prototype with a partner where the player walks through a rainy forest following a spirit to a hotel. Inside, the player can explore, read notes, and eventually reach the rooftop. The game is unfinished and has been scrapped. The prototype was meant to showcase scene changes, animation, ambience, environment, and storytelling, focusing on a narrative about the player searching for closure with someone they lost.',
         language: ['C# (Unity)', 'Git'],
         image: '../assets/images/rain.gif',
-    }
+    },
+    'AnthonyQi.github.io': {
+        description: 'Website set as a collection of all my code and art projects. Slowly learning web development and UI design as I go.',
+        language: ['CSS', 'JavaScript', 'HTML'],
+        image: '../assets/images/web.gif',
+    },
 };
 // Use manual favorites for carousel
 favoriteRepos = manualFavorites;
