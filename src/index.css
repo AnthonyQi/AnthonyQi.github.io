@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+/* Drifting dot-grid background used by HeroBackground.tsx */
+@keyframes drift {
+  from { background-position: 0 0; }
+  to { background-position: 56px 56px; }
+}
