@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
 
 const links = [
   { href: '#projects', label: 'Projects' },
@@ -8,7 +9,12 @@ const links = [
   { href: '#contact', label: 'Contact' },
 ]
 
-export default function Nav() {
+type NavProps = {
+  theme: 'light' | 'dark'
+  onToggleTheme: () => void
+}
+
+export default function Nav({ theme, onToggleTheme }: NavProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -18,25 +24,36 @@ export default function Nav() {
           ANTHONY QI / PORTFOLIO
         </a>
 
-        <ul className="hidden md:flex gap-8">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a href={link.href}
-                className="text-neutral-300 hover:text-white hover:scale-110 transition-all duration-200 uppercase inline-block"
+        <div className="flex items-center gap-8">
+          <ul className="hidden md:flex gap-8">
+            {links.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="text-neutral-300 hover:text-white hover:scale-110 transition-all duration-200 uppercase inline-block"
                 >
-                {link.label}
+                  {link.label}
                 </a>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-          className="md:hidden text-white uppercase"
-        >
-          {isOpen ? 'Close' : 'Menu'}
-        </button>
+          <button
+            onClick={onToggleTheme}
+            aria-label="Toggle dark mode"
+            className="text-neutral-300 hover:text-white transition-colors"
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            className="md:hidden text-white uppercase"
+          >
+            {isOpen ? 'Close' : 'Menu'}
+          </button>
+        </div>
       </div>
 
       {isOpen && (

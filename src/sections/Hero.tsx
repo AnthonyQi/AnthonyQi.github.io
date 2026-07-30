@@ -1,5 +1,3 @@
-import HeroBackground from '../components/HeroBackground';
-
 type QuickFact = {
   label: string;
   value: string;
@@ -17,14 +15,11 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-neutral-950 px-6 pb-24 pt-32 text-white md:px-16"
+      className="relative px-6 pb-24 pt-32 text-white md:px-16"
     >
-      {/* Dynamic background layer — swap HeroBackground for anything later */}
-      <HeroBackground className="z-0" />
-
       {/* Translucent front plane */}
-      <div className="relative z-10 mx-auto w-[90%] max-w-6xl">
-        <div className="border border-white/15 bg-white/5 p-8 backdrop-blur-xl md:p-12">
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="border border-white/10 bg-black/20 p-8 backdrop-blur-md md:p-12">
           <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1fr_320px]">
             {/* Left: intro */}
             <div>
@@ -65,7 +60,7 @@ export default function Hero() {
 
             {/* Right: quick facts — nested inside the outer glass panel,
                 so it drops its own blur to avoid double blur */}
-            <div className="border border-white/10 bg-white/5 p-6">
+            <div className="border border-white/10 bg-black/40 p-6">
               <p className="font-mono text-xs uppercase tracking-widest text-neutral-400">
                 Quick Facts
               </p>
