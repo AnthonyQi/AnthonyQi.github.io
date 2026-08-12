@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Nav from './components/Nav'
 import SiteBackground from './components/SiteBackground'
 import Hero from './sections/Hero'
+import Projects from './sections/Projects'
 
 type Theme = 'light' | 'dark'
 
@@ -28,13 +29,11 @@ function App() {
   }
 
   return (
-    <div className="relative min-h-screen text-white dark:text-white">
+    <div className="relative min-h-screen text-foreground">
       <SiteBackground theme={theme} />
       <Nav theme={theme} onToggleTheme={toggleTheme} />
       <Hero />
-      <section id="about" className="flex h-screen items-center justify-center">
-        <h1 className="text-3xl font-bold">About section placeholder</h1>
-      </section>
+      <Projects />
     </div>
   )
 }

@@ -15,35 +15,33 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative px-6 pb-24 pt-32 text-white md:px-16"
+      className="relative px-6 pb-24 pt-32 text-foreground md:px-16"
     >
       {/* Translucent front plane */}
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="border border-white/10 bg-black/20 p-8 backdrop-blur-md md:p-12">
+        <div className="border border-border bg-card/40 p-8 backdrop-blur-md md:p-12">
           <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1fr_320px]">
             {/* Left: intro */}
             <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                 CS Student · Software Engineering · Game Development
               </p>
-
-              <h1 className="mt-6 font-[Quicksand] text-6xl font-bold leading-[1.05] md:text-7xl">
-                Anthony
-                <br />
-                Qi
+              <h1
+                className="mt-6 text-6xl font-bold leading-[1.05] md:text-7xl"
+                style={{ fontFamily: "'Outfit', sans-serif" }}
+              >
+                Anthony Qi
               </h1>
-
-              <p className="mt-8 max-w-xl text-lg leading-relaxed text-neutral-300">
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
                 I build software that lives at the intersection of systems
                 programming, interactive media, and game development. Currently
                 pursuing a double major B.S in Computer Science and Immersive
                 Media Design @ The University of Maryland.
               </p>
-
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-2 bg-white px-6 py-3 font-semibold text-neutral-950 transition-opacity hover:opacity-85"
+                  className="inline-flex items-center gap-2 bg-primary px-6 py-3 font-semibold text-primary-foreground transition-opacity hover:opacity-85"
                 >
                   View Work
                   <span aria-hidden="true">→</span>
@@ -51,7 +49,7 @@ export default function Hero() {
 
                 <a
                   href="#contact"
-                  className="inline-flex items-center border border-white/40 px-6 py-3 font-semibold text-white transition-colors hover:bg-white hover:text-neutral-950"
+                  className="inline-flex items-center border border-border px-6 py-3 font-semibold text-foreground transition-colors hover:bg-secondary"
                 >
                   Get in Touch
                 </a>
@@ -59,21 +57,21 @@ export default function Hero() {
             </div>
 
             {/* Right: quick facts — nested inside the outer glass panel,
-                so it drops its own blur to avoid double blur */}
-            <div className="border border-white/10 bg-black/40 p-6">
-              <p className="font-mono text-xs uppercase tracking-widest text-neutral-400">
-                Quick Facts
+                so it drops its own blur to avoid double blur/opacity stacking */}
+            <div className="border border-border bg-background/40 p-6">
+              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+                Get To Know Me
               </p>
-              <dl className="mt-4 divide-y divide-white/10">
+              <dl className="mt-4 divide-y divide-border">
                 {QUICK_FACTS.map((fact) => (
                   <div
                     key={fact.label}
                     className="flex items-center justify-between py-2.5"
                   >
-                    <dt className="font-mono text-xs text-neutral-400">
+                    <dt className="font-mono text-xs text-muted-foreground">
                       {fact.label}
                     </dt>
-                    <dd className="text-sm font-medium text-white">
+                    <dd className="text-sm font-medium text-foreground">
                       {fact.value}
                     </dd>
                   </div>

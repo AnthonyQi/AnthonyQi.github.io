@@ -7,7 +7,7 @@ type SiteBackgroundProps = {
 };
 
 export default function SiteBackground({ className = '', theme }: SiteBackgroundProps) {
-  const flakeColor = theme === 'dark' ? '#ffffff' : '#525252';
+  const flakeColor = theme === 'light' ? '#8a8a8a67' : '#fff1f18a';
 
   return (
     <div
@@ -24,7 +24,7 @@ export default function SiteBackground({ className = '', theme }: SiteBackground
         farPlane={20}
         brightness={0.6}
         gamma={0.4545}
-        density={0.15}
+        density={0.125}
         variant="square"
         direction={90}
       />
