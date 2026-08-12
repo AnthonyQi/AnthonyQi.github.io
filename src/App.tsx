@@ -3,6 +3,7 @@ import Nav from './components/Nav'
 import SiteBackground from './components/SiteBackground'
 import Hero from './sections/Hero'
 import Projects from './sections/Projects'
+import GameProjects from './sections/Games'
 
 type Theme = 'light' | 'dark'
 
@@ -34,6 +35,7 @@ function App() {
       <Nav theme={theme} onToggleTheme={toggleTheme} />
       <Hero />
       <Projects />
+      <GameProjects />
     </div>
   )
 }
