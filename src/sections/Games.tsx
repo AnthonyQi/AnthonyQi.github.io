@@ -1,13 +1,26 @@
+import { useState } from "react";
 import { Gamepad2 } from "lucide-react";
 import SectionLabel from "../components/SectionLabel";
 import StatusPill from "../components/StatusPill";
 import { GAME_PROJECTS } from "../data/games";
 
 export default function GameProjects() {
+  const [revealed, setRevealed] = useState(false);
+
   return (
     <section id="games" className="py-20 px-6 max-w-5xl mx-auto">
-      <SectionLabel text="— 02 · Game Development Projects" />
-      <div className="grid md:grid-cols-3 gap-6">
+      <SectionLabel
+        command="ls ./game_projects"
+        onComplete={() => setRevealed(true)}
+        onReset={() => setRevealed(false)}
+      />
+      <div
+        className={`grid md:grid-cols-3 gap-6 transition-all duration-500 ${
+          revealed
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-3 pointer-events-none"
+        }`}
+      >
         {GAME_PROJECTS.map((g) => (
           <article
             key={g.id}

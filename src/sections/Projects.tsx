@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 import SectionLabel from '../components/SectionLabel'
 import StatusPill from '../components/StatusPill'
@@ -5,10 +6,22 @@ import GithubIcon from '../components/Github'
 import { PROJECTS } from '../data/projects'
 
 export default function Projects() {
+  const [revealed, setRevealed] = useState(false)
+
   return (
     <section id="projects" className="py-24 px-6 max-w-5xl mx-auto">
-      <SectionLabel text="— 02 · Featured Projects" />
-      <div className="grid md:grid-cols-2 gap-px bg-border border border-border">
+      <SectionLabel
+        command="ls ./featured_projects"
+        onComplete={() => setRevealed(true)}
+        onReset={() => setRevealed(false)}
+      />
+      <div
+        className={`grid md:grid-cols-2 gap-px bg-border border border-border transition-all duration-500 ${
+          revealed
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-3 pointer-events-none'
+        }`}
+      >
         {PROJECTS.map((p) => (
           <article
             key={p.id}
