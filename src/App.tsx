@@ -4,6 +4,10 @@ import SiteBackground from './components/SiteBackground'
 import Hero from './sections/Hero'
 import Projects from './sections/Projects'
 import GameProjects from './sections/Games'
+import Skills from "./sections/Skills"
+import Experience from './sections/Experience'
+import Resume from './sections/Resume'
+import Contact from './sections/Contact'
 
 type Theme = 'light' | 'dark'
 
@@ -31,11 +35,15 @@ function App() {
 
   return (
     <div className="relative min-h-screen text-foreground">
-      <SiteBackground theme={theme} />
+      {/*<SiteBackground theme={theme} />*/}
       <Nav theme={theme} onToggleTheme={toggleTheme} />
       <Hero />
       <Projects />
       <GameProjects />
+      <Skills />
+      <Experience />
+      <Resume />
+      <Contact />
     </div>
   )
 }

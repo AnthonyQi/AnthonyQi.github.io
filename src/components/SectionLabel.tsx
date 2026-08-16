@@ -54,17 +54,19 @@ export default function SectionLabel({ command, onComplete, onReset }: SectionLa
       onReset?.()
     }
 
+    const topMargin = Math.round(window.innerHeight * 0.5)
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.intersectionRatio > 0 && !isActive.current) {
-          // any visibility at all starts the typing — avoids flicker at a fixed threshold
           startTyping()
         } else if (entry.intersectionRatio === 0 && isActive.current) {
-          // only reset once fully out of view, not at the same edge that triggered start
           reset()
         }
       },
-      { threshold: [0, 1] }
+      {
+        threshold: [0, 1],
+        rootMargin: `${topMargin}px 0px 0px 0px`,
+      }
     )
 
     observer.observe(el)

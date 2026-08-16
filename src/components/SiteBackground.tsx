@@ -1,33 +1,17 @@
-import PixelSnow from './PixelSnow';
-import './PixelSnow.css';
+import './SiteBackground.css'
 
 type SiteBackgroundProps = {
-  className?: string;
-  theme: 'light' | 'dark';
-};
+  className?: string
+  theme?: 'light' | 'dark'
+}
 
-export default function SiteBackground({ className = '', theme }: SiteBackgroundProps) {
-  const flakeColor = theme === 'light' ? '#8a8a8a67' : '#fff1f18a';
-
+export default function SiteBackground({ className = '' }: SiteBackgroundProps) {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none fixed inset-0 -z-10 overflow-hidden ${className}`}
+      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-background ${className}`}
     >
-      <PixelSnow
-        color={flakeColor}
-        flakeSize={0.005}
-        minFlakeSize={1}
-        pixelResolution={325}
-        speed={1.25}
-        depthFade={8}
-        farPlane={20}
-        brightness={0.6}
-        gamma={0.4545}
-        density={0.125}
-        variant="square"
-        direction={90}
-      />
+      <div className="absolute inset-0 crt-scanlines" />
     </div>
-  );
+  )
 }
