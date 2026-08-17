@@ -54,7 +54,7 @@ export default function SectionLabel({ command, onComplete, onReset }: SectionLa
       onReset?.()
     }
 
-    const topMargin = Math.round(window.innerHeight * 0.5)
+    const topMargin = Math.round(window.innerHeight * 0.8)
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.intersectionRatio > 0 && !isActive.current) {
