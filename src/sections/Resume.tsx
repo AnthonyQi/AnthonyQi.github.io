@@ -1,24 +1,13 @@
-import { useState } from "react"
 import { Download } from "lucide-react"
-import SectionLabel from "../components/SectionLabel"
+import Window from "../components/Window"
 import { RESUME } from "../data/resume"
 
 export default function Resume() {
-  const [revealed, setRevealed] = useState(false)
-
   return (
     <section id="resume" className="py-16 px-6 max-w-5xl mx-auto">
-      <SectionLabel
+      <Window
         command="download ./resume.pdf"
-        onComplete={() => setRevealed(true)}
-        onReset={() => setRevealed(false)}
-      />
-      <div
-        className={`border border-border bg-card/40 backdrop-blur-sm p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-all duration-500 ${
-          revealed
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-3 pointer-events-none"
-        }`}
+        contentClassName="flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
       >
         <div>
           <h2
@@ -41,7 +30,7 @@ export default function Resume() {
           <Download size={14} />
           Download Resume
         </a>
-      </div>
+      </Window>
     </section>
   )
 }

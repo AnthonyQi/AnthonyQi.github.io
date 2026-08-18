@@ -1,3 +1,5 @@
+import Window from "../components/Window";
+
 type QuickFact = {
   label: string;
   value: string;
@@ -17,9 +19,8 @@ export default function Hero() {
       id="home"
       className="relative px-6 pb-24 pt-32 text-foreground md:px-16"
     >
-      {/* Translucent front plane */}
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="border border-border bg-card/40 p-8 backdrop-blur-md md:p-12">
+        <Window>
           <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[1fr_320px]">
             {/* Left: intro */}
             <div>
@@ -56,7 +57,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Right: quick facts — nested inside the outer glass panel,
+            {/* Right: quick facts — nested inside the outer glass window,
                 so it drops its own blur to avoid double blur/opacity stacking */}
             <div className="border border-border bg-background/40 p-6">
               <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
@@ -79,7 +80,7 @@ export default function Hero() {
               </dl>
             </div>
           </div>
-        </div>
+        </Window>
       </div>
     </section>
   );

@@ -4,9 +4,15 @@ interface SectionLabelProps {
   command: string
   onComplete?: () => void
   onReset?: () => void
+  className?: string
 }
 
-export default function SectionLabel({ command, onComplete, onReset }: SectionLabelProps) {
+export default function SectionLabel({
+  command,
+  onComplete,
+  onReset,
+  className = "",
+}: SectionLabelProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [typedLength, setTypedLength] = useState(0)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -25,6 +31,8 @@ export default function SectionLabel({ command, onComplete, onReset }: SectionLa
 
     const el = ref.current
     if (!el) return
+
+    const topMargin = Math.round(window.innerHeight * 0.8)
 
     const clearTyping = () => {
       if (intervalRef.current) {
@@ -54,12 +62,13 @@ export default function SectionLabel({ command, onComplete, onReset }: SectionLa
       onReset?.()
     }
 
-    const topMargin = Math.round(window.innerHeight * 0.8)
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.intersectionRatio > 0 && !isActive.current) {
+          // any visibility at all starts the typing — avoids flicker at a fixed threshold
           startTyping()
         } else if (entry.intersectionRatio === 0 && isActive.current) {
+          // only reset once fully out of view, not at the same edge that triggered start
           reset()
         }
       },
@@ -81,14 +90,14 @@ export default function SectionLabel({ command, onComplete, onReset }: SectionLa
   return (
     <div
       ref={ref}
-      className="flex items-center gap-2 mb-10 font-mono text-sm tracking-wide lowercase"
+      className={`flex items-center gap-2 font-mono text-sm tracking-wide lowercase ${className}`}
       style={{ fontFamily: "'Geist Mono', monospace" }}
     >
       <span className="text-foreground/40">❯</span>
       <span className="flex items-center text-muted-foreground">
         {command.slice(0, typedLength)}
         <span
-          className={`inline-block w-[7px] h-[15px] ml-0.5 bg-muted-foreground/50 ${
+          className={`inline-block w-[6px] h-[12px] ml-0.5 bg-muted-foreground/50 ${
             isDone ? "animate-pulse" : ""
           }`}
         />
