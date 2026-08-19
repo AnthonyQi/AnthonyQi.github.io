@@ -39,7 +39,6 @@ export default function Contact() {
               className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase mb-4"
               style={{ fontFamily: "'Geist Mono', monospace" }}
             >
-              Profiles
             </p>
             {CONTACT.profiles.map((p) => {
               const Icon = ICON_MAP[p.icon]

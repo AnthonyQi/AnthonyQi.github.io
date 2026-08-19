@@ -32,7 +32,7 @@ export default function SectionLabel({
     const el = ref.current
     if (!el) return
 
-    const topMargin = Math.round(window.innerHeight * 0.8)
+    const topMargin = Math.round(window.innerHeight * 0.9)
 
     const clearTyping = () => {
       if (intervalRef.current) {

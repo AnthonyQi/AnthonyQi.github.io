@@ -15,12 +15,12 @@ my experience in like 1 sentence
 export default function Skills() {
   return (
     <section id="skills" className="py-20 px-6 max-w-5xl mx-auto">
-      <Window command="ls ./skills" contentClassName="p-0 md:p-0">
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-px bg-border">
+      <Window command="ls ./skills" contentClassName="p-4 md:p-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {SKILL_GROUPS.map((group) => {
             const Icon = ICON_MAP[group.icon]
             return (
-              <div key={group.id} className="bg-card/20 p-6">
+              <div key={group.id} className="border border-border p-6">
                 <div className="flex items-center gap-2 mb-5">
                   <Icon size={14} className="text-muted-foreground" />
                   <span
