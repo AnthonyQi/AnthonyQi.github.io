@@ -5,8 +5,8 @@ export interface ResumeInfo {
 }
 
 export const RESUME: ResumeInfo = {
-  url: "/resume.pdf",
-  lastUpdated: "[Month Year]",
+  url: "/Anthony_Qi_Resume.pdf",
+  lastUpdated: "Aug 2026",
   pages: 1,
 }
 

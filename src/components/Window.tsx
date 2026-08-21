@@ -48,7 +48,7 @@ export default function Window({
       )}
 
       <div
-        className={`p-8 md:p-10 transition-all duration-500 ${
+        className={`p-8 md:p-10 transition-[opacity,transform] duration-500 ${
           revealed
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-3 pointer-events-none"

@@ -23,7 +23,7 @@ export default function Resume() {
         </div>
         <a
           href={RESUME.url}
-          download = "Anthony_Qi_Resume.pdf"
+          download
           className="inline-flex items-center gap-2 bg-foreground text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-foreground/80 transition-colors flex-shrink-0"
           style={{ fontFamily: "'Outfit', sans-serif" }}
         >
