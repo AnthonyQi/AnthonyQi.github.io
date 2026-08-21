@@ -32,7 +32,14 @@ export default function SectionLabel({
     const el = ref.current
     if (!el) return
 
-    const topMargin = Math.round(window.innerHeight * 0.9)
+    // Touch/coarse-pointer devices (mobile, tablets) cover far more
+    // scroll distance per gesture (fling) than a desktop wheel/trackpad
+    // scroll. A buffer sized for desktop lets fast mobile swipes jump
+    // straight past it in a single frame, triggering an early reset
+    // before the user has actually scrolled away from the section.
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches
+    const marginMultiplier = isCoarsePointer ? 1.6 : 0.9
+    const topMargin = Math.round(window.innerHeight * marginMultiplier)
 
     const clearTyping = () => {
       if (intervalRef.current) {

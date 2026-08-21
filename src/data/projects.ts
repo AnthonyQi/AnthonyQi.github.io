@@ -11,41 +11,42 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: '01',
-    title: '[Project Title]',
-    tags: ['[Language]', '[Framework]', '[Tool]'],
+    title: 'Rust Garbage Collection',
+    tags: ['Rust', 'VSCode', 'Git', 'Garbage Collection'],
     description:
-      '[One to two sentences describing what this project does, the problem it solves, and anything technically interesting about how you built it.]',
+      'Implemented three garbage collectors in Rust: reference counting, mark-and-sweep, and stop-and-copy, including recursive heap traversal and live-object compaction.',
     status: 'Complete',
-    githubUrl: '#',
-    demoUrl: '#',
   },
   {
     id: '02',
-    title: '[Project Title]',
-    tags: ['[Language]', '[Framework]', '[Tool]'],
+    title: 'OCaml C Compiler',
+    tags: ['OCaml', 'VSCode', 'Git', 'Compiler', 'Type-Checking', 'OP-Sem'],
     description:
-      '[One to two sentences describing what this project does, the problem it solves, and anything technically interesting about how you built it.]',
+      'Built a full compiler pipeline in OCaml: lexer, parser, AST evaluator, static type checker, and stack-machine code generator for a SmallC-like language.',
     status: 'Complete',
-    githubUrl: '#',
-    demoUrl: '#',
   },
   {
     id: '03',
-    title: '[Project Title]',
-    tags: ['[Language]', '[Framework]', '[Tool]'],
+    title: 'Unix Shell',
+    tags: ['C', 'VSCode', 'Git', 'GDB', 'Valgrind', 'IO ReDirection'],
     description:
-      '[One to two sentences describing what this project does, the problem it solves, and anything technically interesting about how you built it.]',
-    status: 'In Progress',
-    githubUrl: '#',
+      'Built a Unix-style shell from scratch supporting fork/exec, I/O redirection, pipelines, and background processes via wait() and signal handling.',
+    status: 'Complete',
   },
   {
     id: '04',
-    title: '[Project Title]',
-    tags: ['[Language]', '[Framework]', '[Tool]'],
+    title: 'Explicit List (EL) Malloc and Matrix Operation Optimization',
+    tags: ['C', 'VSCode', 'Git', 'Valgrind', 'GDB', 'Memory Management', 'Optimization'],
     description:
-      '[One to two sentences describing what this project does, the problem it solves, and anything technically interesting about how you built it.]',
+      'Implemented an explicit free list allocator using mmap, with splitting and coalescing for dynamic heap management. Optimized multithreaded matrix multiplication using pthreads, mutex synchronization, and cache-aware blocking to improve memory locality and performance.',
     status: 'Complete',
-    githubUrl: '#',
-    demoUrl: '#',
+  },
+  {
+    id: '05',
+    title: 'Minecraft Fabric Mods',
+    tags: ['Java', 'VSCode', ],
+    description:
+      'Built two Minecraft Fabric mods featuring server-side state tracking (boss bar + commands) and custom gameplay mechanics (enchantments, cooldown systems, and textured items).',
+    status: 'Complete',
   },
 ]
