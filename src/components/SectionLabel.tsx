@@ -85,7 +85,20 @@ export default function SectionLabel({
     }
   }, [command])
 
+  const BLINK_SPEED = 800
+  const BLINK_DUR = 3000
   const isDone = typedLength >= command.length
+  const [showCursorBlink, setShowCursorBlink] = useState(false)
+
+  useEffect(() => {
+    if (!isDone) {
+      setShowCursorBlink(false)
+      return
+    }
+    setShowCursorBlink(true)
+    const timeout = setTimeout(() => setShowCursorBlink(false), BLINK_DUR)
+    return () => clearTimeout(timeout)
+  }, [isDone])
 
   return (
     <div
@@ -98,8 +111,9 @@ export default function SectionLabel({
         {command.slice(0, typedLength)}
         <span
           className={`inline-block w-[6px] h-[12px] ml-0.5 bg-muted-foreground/50 ${
-            isDone ? "animate-pulse" : ""
+            showCursorBlink ? "animate-blink" : ""
           }`}
+          style={showCursorBlink ? { animationDuration: `${BLINK_SPEED}ms` } : undefined}
         />
       </span>
     </div>
