@@ -10,7 +10,7 @@ const QUICK_FACTS: QuickFact[] = [
   { label: 'Year', value: 'Junior, 2027' },
   { label: 'Focus', value: 'SWE · Game Dev' },
   { label: 'Location', value: 'College Park, MD' },
-  { label: 'Status', value: 'Open to Roles' },
+  { label: 'Status', value: 'Open' },
 ];
 
 export default function Hero() {
