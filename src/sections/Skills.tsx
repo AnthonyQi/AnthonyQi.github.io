@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react"
 import Window from "../components/Window"
-import { SKILL_GROUPS, sortedSkills, timeExposed, type Skill, type SkillGroup } from "../data/skills"
+import { SKILL_GROUPS, sortedSkills, timeExposed, type Skill } from "../data/skills"
 
 const LEVEL_LABEL: Record<Skill["level"], string> = {
   amateur: "Amateur",
