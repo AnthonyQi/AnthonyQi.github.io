@@ -1,3 +1,5 @@
+import gwThumb from "../assets/games/glitchwave.png";
+import lecThumb from "../assets/games/lec.png";
 export interface GameProject {
   id: string;
   title: string;
@@ -22,7 +24,7 @@ export const GAME_PROJECTS: GameProject[] = [
     duration: "3 weeks",
     url: "https://novigradian7.itch.io/glitchwave",
     status: "Complete",
-    thumbnail: "/src/assets/games/glitchwave.png"
+    thumbnail: gwThumb
   },
   {
     id: "G2",
@@ -34,7 +36,7 @@ export const GAME_PROJECTS: GameProject[] = [
     duration: "3 week",
     url: "https://drive.google.com/file/d/1RXQixTa9w16jMC_MPzcPJ7qXE2FmhMq2/view?usp=sharing",
     status: "Complete",
-    thumbnail: "/src/assets/games/lec.png"
+    thumbnail: lecThumb
   },
   {
     id: "G3",
