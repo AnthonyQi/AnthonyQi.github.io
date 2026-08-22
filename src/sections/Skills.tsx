@@ -84,7 +84,7 @@ export default function Skills() {
                           <span className="w-1 h-1 bg-muted-foreground/50 rounded-full flex-shrink-0" />
                             <span
                               className={`inline-block origin-left text-sm text-foreground transition-transform duration-150 ${
-                                isActive ? "scale-[1.15] font-medium" : ""
+                                isActive ? "scale-[1.05] font-medium" : ""
                               }`}
                             >
                               {skill.name}
