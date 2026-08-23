@@ -24,7 +24,7 @@ import {
   isHighScore,
   saveLeaderboardEntry,
   setMasterVolume,
-  getMasterVolume,
+  //getMasterVolume,
   type Ball,
   type StepEvent,
   type LeaderboardEntry,

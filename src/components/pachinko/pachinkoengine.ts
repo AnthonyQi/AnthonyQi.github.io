@@ -1,6 +1,3 @@
-// pachinkoEngine.ts
-// Optimized physics engine with incremental game support
-
 export interface Peg {
   x: number;
   y: number;
