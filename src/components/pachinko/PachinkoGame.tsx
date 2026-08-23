@@ -11,9 +11,12 @@ import {
   GAME_CONFIG,
   buildPegs,
   buildBins,
+  buildWallTeeth,
   boardHeight,
   stepBall,
   binIndexForX,
+  TOOTH_REACH,
+  TOOTH_HALF_HEIGHT,
   playPegHit,
   playWallHit,
   playDrop,
@@ -63,6 +66,32 @@ function formatMoney(n: number): string {
   return `${sign}$${abs.toFixed(2)}`;
 }
 
+// Draws one wall tooth as a small filled triangle whose flat edge sits
+// flush against the wall, apex pointing inward toward the peg field -
+// shares its dimensions with buildWallTeeth() so the drawn shape always
+// matches its collision circle.
+function drawTooth(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  side: "left" | "right",
+  colors: { muted: string },
+) {
+  const halfHeight = TOOTH_HALF_HEIGHT;
+  const reach = TOOTH_REACH;
+  const flatEdgeX = side === "left" ? x - reach / 2 : x + reach / 2;
+  const apexX = side === "left" ? x + reach / 2 : x - reach / 2;
+  ctx.beginPath();
+  ctx.moveTo(flatEdgeX, y - halfHeight);
+  ctx.lineTo(flatEdgeX, y + halfHeight);
+  ctx.lineTo(apexX, y);
+  ctx.closePath();
+  ctx.fillStyle = colors.muted;
+  ctx.globalAlpha = 0.65;
+  ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
 export default function PachinkoGame({
   width,
   compact = false,
@@ -100,6 +129,10 @@ export default function PachinkoGame({
 
   const pegs = buildPegs(width);
   const bins = buildBins(width);
+  const teeth = buildWallTeeth(width);
+  // Teeth collide exactly like pegs, so the physics loop just sees one
+  // combined list - no separate wall-collision path to keep in sync.
+  const collidables = [...pegs, ...teeth];
 
   useEffect(() => {
     setLeaderboard(loadLeaderboard());
@@ -149,7 +182,7 @@ export default function PachinkoGame({
   function handleBetChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setCustomBet(value);
-    
+
     // Parse the value, default to 0 if empty or invalid
     const numValue = parseFloat(value);
     if (!isNaN(numValue) && numValue >= 0) {
@@ -165,7 +198,7 @@ export default function PachinkoGame({
       setBetAmount(1);
       return;
     }
-    
+
     const numValue = parseFloat(customBet);
     // Clamp to valid range
     const clamped = Math.max(GAME_CONFIG.minBet, Math.min(numValue, balance));
@@ -201,11 +234,11 @@ export default function PachinkoGame({
       betAmount,
     };
     ballsRef.current.push(ball);
-    
+
     setBalance(prev => prev - betAmount);
     setBallsInPlay(prev => prev + 1);
     setTotalBalls(prev => prev + 1);
-    
+
     if (soundOnRef.current) playDrop();
   }
 
@@ -246,7 +279,7 @@ export default function PachinkoGame({
     const draw = () => {
       const events: StepEvent[] = [];
       for (const ball of ballsRef.current) {
-        stepBall(ball, pegs, width, binY, events);
+        stepBall(ball, collidables, width, binY, events);
       }
 
       // Process events
@@ -268,7 +301,7 @@ export default function PachinkoGame({
         const multiplier = bins[idx]?.multiplier ?? 0;
         const winnings = multiplier * ball.betAmount;
         totalWinnings += winnings;
-        
+
         flashRef.current = { binIndex: idx, until: performance.now() + 260 };
         if (soundOnRef.current) playScore(multiplier);
       }
@@ -301,6 +334,11 @@ export default function PachinkoGame({
         ctx.globalAlpha = 0.55;
         ctx.fill();
         ctx.globalAlpha = 1;
+      }
+
+      // Draw wall teeth
+      for (const tooth of teeth) {
+        drawTooth(ctx, tooth.x, tooth.y, tooth.side, colors);
       }
 
       // Draw bins
@@ -359,16 +397,22 @@ export default function PachinkoGame({
     };
   }, [width, height]);
 
-  // Auto game over when out of balance
+  // Auto game over when out of balance. This has to watch `ballsInPlay`
+  // (state), not just `balance` - on a losing (0x) drop, balance was
+  // already deducted when the bet was placed and never changes again once
+  // the ball lands, so an effect keyed only on `balance` would never
+  // re-fire to notice the ball has settled. `ballsInPlay` does change,
+  // from 1 to 0, right when the ball lands, which is exactly the moment
+  // we need to re-check.
   useEffect(() => {
     if (gameOver) return;
-    if (balance < GAME_CONFIG.minBet && ballsRef.current.length === 0) {
+    if (balance < GAME_CONFIG.minBet && ballsInPlay === 0) {
       const timeout = setTimeout(() => {
         triggerGameOver();
       }, 400);
       return () => clearTimeout(timeout);
     }
-  }, [balance, gameOver, triggerGameOver]);
+  }, [balance, ballsInPlay, gameOver, triggerGameOver]);
 
   function submitScore() {
     const name = nameInput.trim().slice(0, 12) || "PLAYER";
