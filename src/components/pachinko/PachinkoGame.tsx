@@ -68,15 +68,15 @@ export default function PachinkoGame({
   compact = false,
   onExit,
   soundOn,
-  onToggleSound,
+  //onToggleSound,
   showLeaderboard,
-  onToggleLeaderboard,
+  //onToggleLeaderboard,
 }: PachinkoGameProps) {
   const [balance, setBalance] = useState(GAME_CONFIG.startingBalance);
   const [betAmount, setBetAmount] = useState(10);
   const [score, setScore] = useState(0);
   const [ballsInPlay, setBallsInPlay] = useState(0);
-  const [totalBalls, setTotalBalls] = useState(0);
+  const [, setTotalBalls] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
