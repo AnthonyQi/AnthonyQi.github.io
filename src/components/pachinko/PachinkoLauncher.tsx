@@ -34,17 +34,6 @@ export default function PachinkoLauncher({ isOpen, onClose }: PachinkoLauncherPr
   const [soundOn, setSoundOn] = useState(true);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   const headerActions = (
@@ -106,15 +95,19 @@ export default function PachinkoLauncher({ isOpen, onClose }: PachinkoLauncherPr
   }
 
   return (
-    <DraggableWindow title="Pachinko" onClose={onClose} headerActions={headerActions}>
+    <DraggableWindow
+      title="Pachinko"
+      onClose={onClose}
+      headerActions={headerActions}
+    >
       <PachinkoGame
-        width={340}
+        width={400}
         compact
         onExit={onClose}
         soundOn={soundOn}
-        onToggleSound={() => setSoundOn((s) => !s)}
+        onToggleSound={() => setSoundOn(s => !s)}
         showLeaderboard={showLeaderboard}
-        onToggleLeaderboard={() => setShowLeaderboard((s) => !s)}
+        onToggleLeaderboard={() => setShowLeaderboard(s => !s)}
       />
     </DraggableWindow>
   );

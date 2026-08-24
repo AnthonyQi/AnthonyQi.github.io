@@ -7,11 +7,13 @@ import {
   type MouseEvent,
   type TouchEvent,
 } from "react";
+
 import {
   GAME_CONFIG,
   buildPegs,
   buildBins,
   buildWallTeeth,
+  buildCupDividers,
   boardHeight,
   stepBall,
   binIndexForX,
@@ -26,8 +28,8 @@ import {
   loadLeaderboard,
   isHighScore,
   saveLeaderboardEntry,
+  getLeaderboardPlacement,
   setMasterVolume,
-  //getMasterVolume,
   type Ball,
   type StepEvent,
   type LeaderboardEntry,
@@ -51,18 +53,42 @@ function readCssVar(name: string, fallback: string): string {
   return value || fallback;
 }
 
-// Formats currency compactly once numbers get large (e.g. $217.06B instead
-// of $217057836818.07) so the HUD never overflows or gets clipped.
+// Named short-scale suffixes from thousand up through decillion (10^33).
+// Ordered largest-first so the lookup below finds the right tier on the
+// first match. Anything past decillion has no commonly recognized name,
+// so formatMoney falls back to scientific notation instead of guessing.
+const MONEY_SUFFIXES: { value: number; suffix: string }[] = [
+  { value: 1e33, suffix: "Dc" }, // decillion
+  { value: 1e30, suffix: "No" }, // nonillion
+  { value: 1e27, suffix: "Oc" }, // octillion
+  { value: 1e24, suffix: "Sp" }, // septillion
+  { value: 1e21, suffix: "Sx" }, // sextillion
+  { value: 1e18, suffix: "Qi" }, // quintillion
+  { value: 1e15, suffix: "Qa" }, // quadrillion
+  { value: 1e12, suffix: "T" },  // trillion
+  { value: 1e9, suffix: "B" },   // billion
+  { value: 1e6, suffix: "M" },   // million
+  { value: 1e3, suffix: "K" },   // thousand
+];
+
+// Formats currency compactly once numbers get large (e.g. $217.06M instead
+// of $217057836.18) so the HUD never overflows or gets clipped. Uses named
+// suffixes up through decillion (10^33), then switches to scientific
+// notation beyond that since there's no widely-recognized name past it.
 function formatMoney(n: number): string {
   const sign = n < 0 ? "-" : "";
   const abs = Math.abs(n);
-  if (abs >= 1_000_000) {
-    const compact = new Intl.NumberFormat("en-US", {
-      notation: "compact",
-      maximumFractionDigits: 2,
-    }).format(abs);
-    return `${sign}$${compact}`;
+
+  if (abs >= 1e33) {
+    return `${sign}$${abs.toExponential(2).replace("e+", "e")}`;
   }
+
+  for (const { value, suffix } of MONEY_SUFFIXES) {
+    if (abs >= value) {
+      return `${sign}$${(abs / value).toFixed(2)}${suffix}`;
+    }
+  }
+
   return `${sign}$${abs.toFixed(2)}`;
 }
 
@@ -112,6 +138,10 @@ export default function PachinkoGame({
   const [nameInput, setNameInput] = useState("");
   const [qualifiesHighScore, setQualifiesHighScore] = useState(false);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [submittedEntry, setSubmittedEntry] =
+    useState<LeaderboardEntry | null>(null);
+  const [submittedPlacement, setSubmittedPlacement] =
+    useState<number | null>(null);
   const [lastWin, setLastWin] = useState<number | null>(null);
   const [customBet, setCustomBet] = useState<string>("10");
 
@@ -130,9 +160,10 @@ export default function PachinkoGame({
   const pegs = buildPegs(width);
   const bins = buildBins(width);
   const teeth = buildWallTeeth(width);
-  // Teeth collide exactly like pegs, so the physics loop just sees one
-  // combined list - no separate wall-collision path to keep in sync.
-  const collidables = [...pegs, ...teeth];
+  // binY is passed in so dividers sit just above the ball's landing line -
+  // see the comment on buildCupDividers for why that ordering matters.
+  const dividers = buildCupDividers(width, binY);
+  const collidables = [...pegs, ...teeth, ...dividers];
 
   useEffect(() => {
     setLeaderboard(loadLeaderboard());
@@ -149,6 +180,8 @@ export default function PachinkoGame({
     setGameOver(false);
     setScoreSubmitted(false);
     setQualifiesHighScore(false);
+    setSubmittedEntry(null);
+    setSubmittedPlacement(null);
     setLastWin(null);
     setBalance(GAME_CONFIG.startingBalance);
   }, []);
@@ -340,6 +373,40 @@ export default function PachinkoGame({
       for (const tooth of teeth) {
         drawTooth(ctx, tooth.x, tooth.y, tooth.side, colors);
       }
+      // Draw cup dividers
+      for (const divider of dividers) {
+        const dividerHeight = 18;
+        ctx.beginPath();
+
+        ctx.moveTo(
+          divider.x - divider.r,
+          binY
+        );
+
+        ctx.lineTo(
+          divider.x - divider.r,
+          binY + dividerHeight
+        );
+
+        ctx.quadraticCurveTo(
+          divider.x,
+          binY + dividerHeight + 4,
+          divider.x + divider.r,
+          binY + dividerHeight
+        );
+
+        ctx.lineTo(
+          divider.x + divider.r,
+          binY
+        );
+
+        ctx.closePath();
+
+        ctx.fillStyle = colors.muted;
+        ctx.globalAlpha = 0.8;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
 
       // Draw bins
       const flash = flashRef.current;
@@ -416,12 +483,19 @@ export default function PachinkoGame({
 
   function submitScore() {
     const name = nameInput.trim().slice(0, 12) || "PLAYER";
-    const updated = saveLeaderboardEntry({
+
+    const entry: LeaderboardEntry = {
       name,
       score,
       date: new Date().toISOString().slice(0, 10),
-    });
+    };
+
+    const updated = saveLeaderboardEntry(entry);
+    const placement = getLeaderboardPlacement(entry);
+
     setLeaderboard(updated);
+    setSubmittedEntry(entry);
+    setSubmittedPlacement(placement);
     setScoreSubmitted(true);
   }
 
@@ -545,11 +619,15 @@ export default function PachinkoGame({
             <p className="text-xs text-muted-foreground">
               Final Balance: {formatMoney(balance)}
             </p>
-            {qualifiesHighScore && !scoreSubmitted && (
+            {!scoreSubmitted && (
               <div className="flex flex-col items-center gap-2 w-full max-w-[220px]">
-                <p className="font-mono text-[9px] tracking-widest uppercase text-foreground">
-                  New high score!
-                </p>
+
+                {qualifiesHighScore && (
+                  <p className="font-mono text-[9px] tracking-widest uppercase text-foreground">
+                    New high score!
+                  </p>
+                )}
+
                 <input
                   value={nameInput}
                   onChange={(e) => setNameInput(e.target.value)}
@@ -557,12 +635,37 @@ export default function PachinkoGame({
                   placeholder="Your name"
                   className="w-full bg-input-background border border-border px-2 py-1.5 text-sm text-center font-mono uppercase tracking-wider outline-none focus:border-foreground"
                 />
+
                 <button
                   onClick={submitScore}
                   className="w-full bg-foreground text-primary-foreground px-3 py-1.5 text-xs font-medium hover:bg-foreground/80 transition-colors"
                 >
                   Save score
                 </button>
+
+              </div>
+            )}
+            {scoreSubmitted && submittedEntry && (
+              <div className="flex flex-col items-center gap-1 w-full max-w-[220px]">
+                <p className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground">
+                  Your score
+                </p>
+
+                <div className="flex items-center justify-between w-full border border-border px-3 py-2">
+                  <span className="font-mono text-xs text-muted-foreground">
+                    #{submittedPlacement ?? "?"}
+                  </span>
+
+                  <span className="font-mono text-xs text-foreground">
+                    {formatMoney(submittedEntry.score)}
+                  </span>
+                </div>
+
+                {submittedPlacement && submittedPlacement > 10 && (
+                  <p className="font-mono text-[8px] tracking-wider uppercase text-muted-foreground">
+                    Outside the top 10
+                  </p>
+                )}
               </div>
             )}
             <div className="flex items-center gap-2 mt-1">

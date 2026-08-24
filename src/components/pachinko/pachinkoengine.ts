@@ -40,23 +40,28 @@ export const GAME_CONFIG = {
   gravity: 0.32,
   bounceDamping: 0.68,
   jitter: 0.45,
-  wallBounceDamping: 0.88, // Bumped up from 0.6 so side walls feel bouncier
-  // Exponential multipliers: [outermost...center...outermost]
-  // Center bins are x0, then progressively increase outward
-  multipliers: [20, 5, 2, 1, 0.75, 0.5, 0, 0.5, 0.75, 1, 2, 5, 20],
+  wallBounceDamping: 1.05,
+
+  toothBounceDamping: 0.96,
+  toothKick: 1.15,
+
+  dividerRadius: 5,
+  dividerBounceDamping: 0.82,
+  dividerKick: 0.18,
+  multipliers: [20, 5, 0.75, 2, 0.5, 1, 0, 1, 0.5, 2, 0.75, 5, 20],
   startingBalance: 1000,
   minBet: 0.01,
   maxBet: 1000000, // Allow any amount
 };
 
-export const TOP_MARGIN = 56;
+export const TOP_MARGIN = 60;
 // Small physical boundary so the ball never clips off the edge of the
 // canvas - this is just a hard clamp, not the visual/gameplay wall.
 const WALL_EDGE_INSET = 0;
 // Shape of a wall tooth, shared between physics and rendering so the
 // drawn triangle and its collision circle always line up.
-export const TOOTH_REACH = 12; // how far the apex pokes inward from the wall
-export const TOOTH_HALF_HEIGHT = 9; // vertical half-extent of the triangle
+export const TOOTH_REACH = 15; // how far the apex pokes inward from the wall
+export const TOOTH_HALF_HEIGHT = 12; // vertical half-extent of the triangle
 
 /**
  * The horizontal inset of the *even* peg rows from the canvas edge.
@@ -102,6 +107,42 @@ export interface WallTooth extends Peg {
   side: "left" | "right";
 }
 
+export interface CupDivider extends Peg {
+  type: "divider";
+}
+
+/**
+ * Cup dividers must sit ABOVE `binY` (a smaller y value), not below it.
+ * A ball is marked `alive = false` the moment `ball.y + ball.r >= binY`
+ * (see stepBall), so any collider placed at a y-position >= binY can
+ * never be reached by a still-alive ball - it's dead code. Previously
+ * this used `boardHeight() - 22`, which sat below `binY`, so dividers
+ * rendered visually but never actually collided with anything.
+ *
+ * Now takes `binY` explicitly (rather than recomputing boardHeight()
+ * independently) so the physics position can never drift out of sync
+ * with the value the caller actually uses to decide when a ball lands.
+ */
+export function buildCupDividers(width: number, binY: number): CupDivider[] {
+  const binWidth = width / GAME_CONFIG.multipliers.length;
+  // Sit a bit above the landing line so there's room for the ball's
+  // radius + the divider's radius to resolve a collision before the
+  // ball's y ever reaches binY and gets killed off.
+  const dividerY = binY - 10;
+
+  const dividers: CupDivider[] = [];
+
+  for (let i = 1; i < GAME_CONFIG.multipliers.length; i++) {
+    dividers.push({
+      x: i * binWidth,
+      y: dividerY,
+      r: GAME_CONFIG.dividerRadius,
+      type: "divider",
+    });
+  }
+
+  return dividers;
+}
 /**
  * Discrete teeth that plug the gap on staggered (odd) rows only. Even
  * rows already have a real peg sitting at `xOffset` from the edge, so
@@ -177,8 +218,9 @@ export function stepBall(
     events.push({ type: "wall", x: ball.x, y: ball.y });
   }
 
-  // Peg collisions - optimized with early exit
+  // Collisions with pegs, side teeth, and cup dividers.
   const ballR = ball.r;
+
   for (const peg of pegs) {
     const dx = ball.x - peg.x;
     const dy = ball.y - peg.y;
@@ -190,19 +232,68 @@ export function stepBall(
       const dist = Math.sqrt(distSq);
       const nx = dx / dist;
       const ny = dy / dist;
+
       const overlap = minDist - dist;
+
       ball.x += nx * overlap;
       ball.y += ny * overlap;
 
       const dot = ball.vx * nx + ball.vy * ny;
-      ball.vx = (ball.vx - 2 * dot * nx) * GAME_CONFIG.bounceDamping;
-      ball.vy = (ball.vy - 2 * dot * ny) * GAME_CONFIG.bounceDamping;
-      ball.vx += (Math.random() - 0.5) * GAME_CONFIG.jitter;
 
-      events.push({ type: "peg", x: peg.x, y: peg.y });
+      const isTooth =
+        "side" in peg &&
+        (peg.side === "left" || peg.side === "right");
+
+      const isDivider =
+        "type" in peg &&
+        peg.type === "divider";
+
+      const damping = isTooth
+        ? GAME_CONFIG.toothBounceDamping
+        : isDivider
+          ? GAME_CONFIG.dividerBounceDamping
+          : GAME_CONFIG.bounceDamping;
+
+      ball.vx = (ball.vx - 2 * dot * nx) * damping;
+      ball.vy = (ball.vy - 2 * dot * ny) * damping;
+
+      // Normal peg jitter.
+      if(!isDivider) {
+        ball.vx +=
+          (Math.random() - 0.5) *
+          GAME_CONFIG.jitter;
+      }
+
+      // Side teeth get a stronger kick toward the center and upward.
+      if(isTooth) {
+        const inward =
+          "side" in peg && peg.side === "left"
+            ? 1
+            : -1;
+
+        ball.vx += inward * GAME_CONFIG.toothKick;
+
+        // This is what makes the teeth feel like they're kicking
+        // the ball upward instead of simply reflecting it.
+        ball.vy -= GAME_CONFIG.toothKick * 0.75;
+      }
+
+      // Cup dividers get a small velocity boost without becoming
+      // nearly as violent as the side teeth.
+      if (isDivider) {
+        ball.vy -= GAME_CONFIG.dividerKick;
+
+        // Slightly push the ball away from the divider horizontally.
+        ball.vx += nx * GAME_CONFIG.dividerKick;
+      }
+
+      events.push({
+        type: isDivider ? "peg" : isTooth ? "wall" : "peg",
+        x: peg.x,
+        y: peg.y,
+      });
     }
   }
-
   if (ball.y + ball.r >= binY) {
     ball.alive = false;
   }
@@ -326,34 +417,77 @@ export interface LeaderboardEntry {
 const LEADERBOARD_KEY = "pachinko:leaderboard";
 const MAX_ENTRIES = 10;
 
-export function loadLeaderboard(): LeaderboardEntry[] {
+export function loadAllLeaderboardScores(): LeaderboardEntry[] {
   if (typeof window === "undefined") return [];
+
   try {
     const raw = window.localStorage.getItem(LEADERBOARD_KEY);
+
     if (!raw) return [];
+
     const parsed = JSON.parse(raw);
+
     if (!Array.isArray(parsed)) return [];
-    return parsed;
+
+    return parsed
+      .filter(
+        (entry): entry is LeaderboardEntry =>
+          entry &&
+          typeof entry.name === "string" &&
+          typeof entry.score === "number" &&
+          typeof entry.date === "string"
+      )
+      .sort((a, b) => b.score - a.score);
   } catch {
     return [];
   }
 }
 
+export function loadLeaderboard(): LeaderboardEntry[] {
+  return loadAllLeaderboardScores().slice(0, MAX_ENTRIES);
+}
 export function isHighScore(score: number): boolean {
-  const board = loadLeaderboard();
-  if (board.length < MAX_ENTRIES) return score > 0;
-  return score > board[board.length - 1].score;
+  if (score <= 0) return false;
+
+  const board = loadAllLeaderboardScores();
+
+  if (board.length < MAX_ENTRIES) return true;
+
+  return score > board[MAX_ENTRIES - 1].score;
 }
 
-export function saveLeaderboardEntry(entry: LeaderboardEntry): LeaderboardEntry[] {
-  const board = loadLeaderboard();
+export function saveLeaderboardEntry(
+  entry: LeaderboardEntry
+): LeaderboardEntry[] {
+  const board = loadAllLeaderboardScores();
+
   board.push(entry);
+
   board.sort((a, b) => b.score - a.score);
-  const trimmed = board.slice(0, MAX_ENTRIES);
+
   try {
-    window.localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(trimmed));
+    window.localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(board));
   } catch {
     // storage unavailable, ignore
   }
-  return trimmed;
+
+  // The UI leaderboard still only displays the top 10.
+  return board.slice(0, MAX_ENTRIES);
+}
+
+export function getLeaderboardPlacement(
+  entry: LeaderboardEntry
+): number | null {
+  const board = loadAllLeaderboardScores();
+
+  const index = board.findIndex(
+    (item) =>
+      item.name === entry.name &&
+      item.score === entry.score &&
+      item.date === entry.date
+  );
+
+  if (index === -1) return null;
+
+  return index + 1;
 }

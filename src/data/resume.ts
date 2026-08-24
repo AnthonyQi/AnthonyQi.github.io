@@ -10,4 +10,3 @@ export const RESUME: ResumeInfo = {
   pages: 1,
 }
 
-//add the resume to public as public/resume.pdf
