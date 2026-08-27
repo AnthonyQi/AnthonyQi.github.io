@@ -43,7 +43,6 @@ export default function GameProjects() {
                 <div className="flex items-start justify-between mb-3 gap-2">
                   <span
                     className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     {g.genre.join(", ")}
                   </span>
@@ -53,7 +52,6 @@ export default function GameProjects() {
 
                 <h3
                   className="text-base font-semibold mb-2 leading-snug"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
                 >
                   {g.title}
                 </h3>
@@ -65,14 +63,12 @@ export default function GameProjects() {
                 <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
                   <span
                     className="font-mono text-[10px] text-muted-foreground"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     {g.engine}
                   </span>
 
                   <span
                     className="font-mono text-[10px] text-muted-foreground"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     {g.team} · {g.duration}
                   </span>

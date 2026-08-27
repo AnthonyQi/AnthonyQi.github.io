@@ -76,7 +76,6 @@ export default function Skills() {
                     <div className="mb-5">
                       <span
                         className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase"
-                        style={{ fontFamily: "'Geist Mono', monospace" }}
                       >
                         {group.category}
                       </span>
@@ -120,7 +119,6 @@ export default function Skills() {
                       />
                       <p
                         className="font-mono text-[10px] tracking-wider uppercase text-muted-foreground mb-1"
-                        style={{ fontFamily: "'Geist Mono', monospace" }}
                       >
                         {activeSkill.name} · {LEVEL_LABEL[activeSkill.level]}
                       </p>

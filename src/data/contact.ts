@@ -27,7 +27,7 @@ export const CONTACT: ContactInfo = {
     {
       id: "02",
       label: "LinkedIn",
-      handle: "[in/aqi1]",
+      handle: "in/aqi1",
       href: "https://linkedin.com/in/aqi1",
       icon: "linkedin",
     },

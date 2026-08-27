@@ -5,9 +5,8 @@ type QuickFact = {
   value: string;
 };
 
-// TODO: confirm "Year" and "Location" — placeholders for now
 const QUICK_FACTS: QuickFact[] = [
-  { label: 'Year', value: 'Junior, 2027' },
+  { label: 'Year', value: 'Class of 2028' },
   { label: 'Focus', value: 'SWE · Game Dev' },
   { label: 'Location', value: 'College Park, MD' },
   { label: 'Status', value: 'Open' },
@@ -29,15 +28,13 @@ export default function Hero() {
               </p>
               <h1
                 className="mt-6 text-6xl font-bold leading-[1.05] md:text-7xl"
-                style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 Anthony Qi
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
                 I build software that lives at the intersection of systems
                 programming, interactive media, and game development. Currently
-                pursuing a double major B.S in Computer Science and Immersive
-                Media Design @ The University of Maryland.
+                pursuing a double major in Computer Science (B.S.) and Immersive Media Design (B.S.) at the University of Maryland.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <a

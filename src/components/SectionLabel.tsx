@@ -111,7 +111,6 @@ export default function SectionLabel({
     <div
       ref={ref}
       className={`flex items-center gap-2 font-mono text-sm tracking-wide lowercase ${className}`}
-      style={{ fontFamily: "'Geist Mono', monospace" }}
     >
       <span className="text-foreground/40">❯</span>
       <span className="flex items-center text-muted-foreground">

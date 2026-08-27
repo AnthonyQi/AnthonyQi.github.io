@@ -12,7 +12,6 @@ export default function Resume() {
         <div>
           <h2
             className="text-2xl font-semibold text-foreground"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             Download my resume
           </h2>
@@ -25,7 +24,6 @@ export default function Resume() {
           href={RESUME.url}
           download
           className="inline-flex items-center gap-2 bg-foreground text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-foreground/80 transition-colors flex-shrink-0"
-          style={{ fontFamily: "'Outfit', sans-serif" }}
         >
           <Download size={14} />
           Download Resume

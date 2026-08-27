@@ -17,7 +17,6 @@ export default function Projects() {
               <div className="flex items-start justify-between mb-4">
                 <span
                   className="font-mono text-[10px] text-muted-foreground"
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
                 >
                   {p.id}
                 </span>
@@ -26,7 +25,6 @@ export default function Projects() {
 
               <h3
                 className="text-lg font-semibold mb-2 leading-snug text-foreground"
-                style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 {p.title}
               </h3>
@@ -40,7 +38,6 @@ export default function Projects() {
                   <span
                     key={t}
                     className="font-mono text-[10px] px-2 py-0.5 bg-muted text-muted-foreground"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     {t}
                   </span>
@@ -52,7 +49,6 @@ export default function Projects() {
                   <a
                     href={p.githubUrl}
                     className="font-mono text-[10px] tracking-wider uppercase text-foreground flex items-center gap-1 hover:underline"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     <GithubIcon size={11} /> GitHub
                   </a>
@@ -61,7 +57,6 @@ export default function Projects() {
                   <a
                     href={p.demoUrl}
                     className="font-mono text-[10px] tracking-wider uppercase text-foreground flex items-center gap-1 hover:underline"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     <ExternalLink size={11} /> Demo
                   </a>

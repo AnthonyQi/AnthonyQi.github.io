@@ -11,7 +11,6 @@ export default function StatusPill({ status }: StatusPillProps) {
           ? 'border-foreground/40 text-foreground/60'
           : 'border-muted-foreground/50 text-muted-foreground'
       }`}
-      style={{ fontFamily: "'Geist Mono', monospace" }}
     >
       {status}
     </span>

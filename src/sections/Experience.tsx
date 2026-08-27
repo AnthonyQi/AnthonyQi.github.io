@@ -15,13 +15,11 @@ export default function Experience() {
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-3">
                   <span
                     className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase bg-muted px-2 py-0.5"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     {e.type}
                   </span>
                   <span
                     className="font-mono text-[10px] text-muted-foreground"
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
                   >
                     {e.period}
                   </span>
@@ -29,7 +27,6 @@ export default function Experience() {
 
                 <h3
                   className="text-base font-semibold leading-snug text-foreground"
-                  style={{ fontFamily: "'Outfit', sans-serif" }}
                 >
                   {e.role}
                 </h3>

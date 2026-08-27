@@ -423,7 +423,7 @@ export default function PachinkoGame({
           ctx.globalAlpha = 1;
         }
         ctx.fillStyle = colors.muted;
-        ctx.font = "9px 'Geist Mono', monospace";
+        ctx.font = "9px 'IBM Plex Mono', monospace";
         ctx.textAlign = "center";
         const label = bin.multiplier === 0 ? "0" : `${bin.multiplier}x`;
         ctx.fillText(label, (bin.xStart + bin.xEnd) / 2, binY + (height - binY) / 2 + 3);
@@ -613,7 +613,7 @@ export default function PachinkoGame({
             <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
               Game Over
             </p>
-            <p className="text-2xl font-semibold" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <p className="text-2xl font-semibold" >
               {formatMoney(score)}
             </p>
             <p className="text-xs text-muted-foreground">

@@ -17,7 +17,6 @@ export default function Contact() {
           <div>
             <h2
               className="text-3xl md:text-4xl font-light leading-tight mb-4 text-foreground"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               <span className="font-semibold">Contact Me</span>
             </h2>
@@ -27,7 +26,6 @@ export default function Contact() {
             <a
               href={`mailto:${CONTACT.email}`}
               className="inline-flex items-center gap-2 text-sm font-medium text-foreground border-b border-foreground pb-0.5 hover:text-muted-foreground hover:border-muted-foreground transition-colors"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               <Mail size={14} />
               {CONTACT.email}
@@ -37,7 +35,6 @@ export default function Contact() {
           <div className="md:text-right space-y-px w-full md:w-auto">
             <p
               className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase mb-4"
-              style={{ fontFamily: "'Geist Mono', monospace" }}
             >
             </p>
             {CONTACT.profiles.map((p) => {
@@ -58,7 +55,6 @@ export default function Contact() {
                     <p className="text-sm font-medium text-foreground">{p.label}</p>
                     <p
                       className="font-mono text-[10px] text-muted-foreground"
-                      style={{ fontFamily: "'Geist Mono', monospace" }}
                     >
                       {p.handle}
                     </p>
