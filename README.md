@@ -50,7 +50,7 @@ ls ./skills
 ls ./experience
 cat ./contact.json
 download ./resume.pdf
-
+```
 
 
 I especially like keeping the **Performance Optimization** section. Most portfolio READMEs are basically “React + Tailwind, here are installation instructions.” Yours can document that you noticed an always-running render loop, changed the architecture so the Canvas sleeps when idle, lazy-loaded the game, cached static rendering, and reduced unnecessary React work. That's much more interesting technically than simply listing the stack.
