@@ -20,6 +20,11 @@ interface DraggableWindowProps {
   headerActions?: ReactNode;
 }
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 export default function DraggableWindow({
   title,
   onClose,
@@ -28,181 +33,430 @@ export default function DraggableWindow({
   initialY,
   headerActions,
 }: DraggableWindowProps) {
-  const panelRef = useRef<HTMLDivElement>(null);
+  const panelRef =
+    useRef<HTMLDivElement>(null);
 
-  const dragState = useRef<{
-    dx: number;
-    dy: number;
-    dragging: boolean;
-  }>({
-    dx: 0,
-    dy: 0,
-    dragging: false,
-  });
+  const dragState =
+    useRef({
+      dx: 0,
+      dy: 0,
+      dragging: false,
+    });
+
+  /*
+   * Cache window dimensions so pointermove does not
+   * repeatedly query offsetWidth / offsetHeight.
+   */
+  const panelSizeRef =
+    useRef({
+      width: 360,
+      height: 500,
+    });
 
   const hasCustomPosition =
-    initialX !== undefined || initialY !== undefined;
+    initialX !== undefined ||
+    initialY !== undefined;
 
-  const [pos, setPos] = useState({
-    x: initialX ?? 0,
-    y: initialY ?? 0,
-  });
-
-  function positionBottomRight() {
-    const panel = panelRef.current;
-    if (!panel) return;
-
-    const margin = 24;
-
-    const w = panel.offsetWidth;
-    const h = panel.offsetHeight;
-
-    setPos({
-      x: Math.max(margin, window.innerWidth - w - margin),
-      y: Math.max(margin, window.innerHeight - h - margin),
+  const [pos, setPos] =
+    useState<Position>({
+      x: initialX ?? 0,
+      y: initialY ?? 0,
     });
+
+  /*
+   * Keep the latest position available synchronously.
+   * React state itself updates asynchronously.
+   */
+  const posRef =
+    useRef<Position>(pos);
+
+  posRef.current = pos;
+
+  /*
+   * Pointer events may fire much faster than the screen
+   * can visually update.
+   *
+   * Store the newest requested position here, then commit
+   * it once per animation frame.
+   */
+  const pendingPosRef =
+    useRef<Position>(pos);
+
+  const dragRafRef =
+    useRef<number | null>(null);
+
+  function commitPosition(
+    next: Position
+  ) {
+    posRef.current = next;
+    pendingPosRef.current =
+      next;
+
+    setPos(next);
   }
 
-  useEffect(() => {
-    if (hasCustomPosition) return;
+  function measurePanel() {
+    const panel =
+      panelRef.current;
 
-    requestAnimationFrame(() => {
-      positionBottomRight();
-    });
+    if (!panel) {
+      return;
+    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    panelSizeRef.current = {
+      width:
+        panel.offsetWidth,
 
-  /**
-   * Reposition the window whenever its size changes.
-   *
-   * This is what makes the window move upward when the
-   * leaderboard appears.
-   */
-  useEffect(() => {
-    if (hasCustomPosition) return;
+      height:
+        panel.offsetHeight,
+    };
+  }
 
-    const panel = panelRef.current;
-    if (!panel) return;
-
-    const observer = new ResizeObserver(() => {
-      if (dragState.current.dragging) return;
-
-      const margin = 24;
-      const width = panel.offsetWidth;
-      const height = panel.offsetHeight;
-
-      setPos({
-        x: Math.max(margin, window.innerWidth - width - margin),
-        y: Math.max(margin, window.innerHeight - height - margin),
-      });
-    });
-
-    observer.observe(panel);
-
-    return () => observer.disconnect();
-  }, [hasCustomPosition]);
-
-  function clampToViewport(x: number, y: number) {
-    const panel = panelRef.current;
-
-    const w = panel?.offsetWidth ?? 360;
-    const h = panel?.offsetHeight ?? 500;
+  function clampToViewport(
+    x: number,
+    y: number
+  ): Position {
+    const {
+      width,
+      height,
+    } = panelSizeRef.current;
 
     const margin = 24;
 
     return {
       x: Math.min(
-        Math.max(margin, x),
-        Math.max(margin, window.innerWidth - w - margin),
+        Math.max(
+          margin,
+          x
+        ),
+
+        Math.max(
+          margin,
+
+          window.innerWidth -
+            width -
+            margin
+        )
       ),
+
       y: Math.min(
-        Math.max(margin, y),
-        Math.max(margin, window.innerHeight - h - margin),
+        Math.max(
+          margin,
+          y
+        ),
+
+        Math.max(
+          margin,
+
+          window.innerHeight -
+            height -
+            margin
+        )
       ),
     };
   }
 
-  function onPointerDown(e: PointerEvent) {
-    dragState.current.dragging = true;
+  function positionBottomRight() {
+    measurePanel();
 
-    dragState.current.dx = e.clientX - pos.x;
-    dragState.current.dy = e.clientY - pos.y;
+    const {
+      width,
+      height,
+    } = panelSizeRef.current;
 
-    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+    const margin = 24;
+
+    commitPosition({
+      x: Math.max(
+        margin,
+
+        window.innerWidth -
+          width -
+          margin
+      ),
+
+      y: Math.max(
+        margin,
+
+        window.innerHeight -
+          height -
+          margin
+      ),
+    });
   }
 
-  function onPointerMove(e: PointerEvent) {
-    if (!dragState.current.dragging) return;
+  /*
+   * Initial placement.
+   */
+  useEffect(() => {
+    if (
+      hasCustomPosition
+    ) {
+      measurePanel();
+      return;
+    }
 
-    const next = clampToViewport(
-      e.clientX - dragState.current.dx,
-      e.clientY - dragState.current.dy,
+    const frame =
+      requestAnimationFrame(
+        () => {
+          positionBottomRight();
+        }
+      );
+
+    return () => {
+      cancelAnimationFrame(
+        frame
+      );
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /*
+   * Keep cached dimensions current.
+   *
+   * The Pachinko leaderboard can change the panel's
+   * height, so ResizeObserver is still useful.
+   */
+  useEffect(() => {
+    const panel =
+      panelRef.current;
+
+    if (!panel) {
+      return;
+    }
+
+    const observer =
+      new ResizeObserver(
+        () => {
+          measurePanel();
+
+          if (
+            dragState.current
+              .dragging
+          ) {
+            return;
+          }
+
+          if (
+            !hasCustomPosition
+          ) {
+            positionBottomRight();
+          } else {
+            commitPosition(
+              clampToViewport(
+                posRef.current.x,
+                posRef.current.y
+              )
+            );
+          }
+        }
+      );
+
+    observer.observe(panel);
+
+    return () =>
+      observer.disconnect();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasCustomPosition]);
+
+  function onPointerDown(
+    e: PointerEvent
+  ) {
+    /*
+     * Update cached dimensions once at the beginning
+     * of the drag instead of reading layout every move.
+     */
+    measurePanel();
+
+    dragState.current.dragging =
+      true;
+
+    dragState.current.dx =
+      e.clientX -
+      posRef.current.x;
+
+    dragState.current.dy =
+      e.clientY -
+      posRef.current.y;
+
+    (
+      e.currentTarget as Element
+    ).setPointerCapture(
+      e.pointerId
     );
-
-    setPos(next);
   }
 
-  function onPointerUp(e: PointerEvent) {
-    dragState.current.dragging = false;
+  function onPointerMove(
+    e: PointerEvent
+  ) {
+    if (
+      !dragState.current
+        .dragging
+    ) {
+      return;
+    }
 
-    const target = e.currentTarget as Element;
+    pendingPosRef.current =
+      clampToViewport(
+        e.clientX -
+          dragState.current.dx,
 
-    if (target.hasPointerCapture(e.pointerId)) {
-      target.releasePointerCapture(e.pointerId);
+        e.clientY -
+          dragState.current.dy
+      );
+
+    /*
+     * Pointer events can fire faster than refresh rate.
+     * Only schedule one visual update per frame.
+     */
+    if (
+      dragRafRef.current !==
+      null
+    ) {
+      return;
+    }
+
+    dragRafRef.current =
+      requestAnimationFrame(
+        () => {
+          commitPosition(
+            pendingPosRef.current
+          );
+
+          dragRafRef.current =
+            null;
+        }
+      );
+  }
+
+  function onPointerUp(
+    e: PointerEvent
+  ) {
+    dragState.current.dragging =
+      false;
+
+    const target =
+      e.currentTarget as Element;
+
+    if (
+      target.hasPointerCapture(
+        e.pointerId
+      )
+    ) {
+      target.releasePointerCapture(
+        e.pointerId
+      );
     }
   }
 
+  /*
+   * Escape closes the window.
+   */
   useEffect(() => {
-    function onEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") {
+    function onEscape(
+      e: KeyboardEvent
+    ) {
+      if (
+        e.key === "Escape"
+      ) {
         onClose();
       }
     }
 
-    window.addEventListener("keydown", onEscape);
+    window.addEventListener(
+      "keydown",
+      onEscape
+    );
 
     return () => {
-      window.removeEventListener("keydown", onEscape);
+      window.removeEventListener(
+        "keydown",
+        onEscape
+      );
     };
   }, [onClose]);
 
+  /*
+   * Keep the window inside the viewport after browser
+   * resizes.
+   */
   useEffect(() => {
     function onResize() {
-      if (dragState.current.dragging) return;
+      if (
+        dragState.current
+          .dragging
+      ) {
+        return;
+      }
 
-      if (!hasCustomPosition) {
+      measurePanel();
+
+      if (
+        !hasCustomPosition
+      ) {
         positionBottomRight();
       } else {
-        setPos((current) =>
-          clampToViewport(current.x, current.y),
+        commitPosition(
+          clampToViewport(
+            posRef.current.x,
+            posRef.current.y
+          )
         );
       }
     }
 
-    window.addEventListener("resize", onResize);
+    window.addEventListener(
+      "resize",
+      onResize
+    );
 
     return () => {
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener(
+        "resize",
+        onResize
+      );
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasCustomPosition]);
 
+  /*
+   * Clean up any pending drag animation frame.
+   */
+  useEffect(() => {
+    return () => {
+      if (
+        dragRafRef.current !==
+        null
+      ) {
+        cancelAnimationFrame(
+          dragRafRef.current
+        );
+      }
+    };
+  }, []);
+
   return (
     <div
       ref={panelRef}
-      className="fixed z-[70] max-h-[calc(100vh-48px)] border border-border bg-card/90 backdrop-blur-md shadow-2xl flex flex-col overflow-hidden"
+      className="fixed left-0 top-0 z-[70] max-h-[calc(100vh-48px)] border border-border bg-card shadow-2xl flex flex-col overflow-hidden"
       style={{
-        left: pos.x,
-        top: pos.y,
+        transform: `translate3d(${pos.x}px, ${pos.y}px, 0)`,
       }}
     >
       {/* Header */}
       <div
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
+        onPointerDown={
+          onPointerDown
+        }
+        onPointerMove={
+          onPointerMove
+        }
+        onPointerUp={
+          onPointerUp
+        }
         className="flex shrink-0 items-center justify-between px-3 py-2 border-b border-border cursor-move bg-secondary/60 touch-none"
       >
         <span className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
@@ -211,7 +465,11 @@ export default function DraggableWindow({
 
         <div
           className="flex items-center gap-3"
-          onPointerDown={(e) => e.stopPropagation()}
+          onPointerDown={(
+            e
+          ) =>
+            e.stopPropagation()
+          }
         >
           {headerActions}
 

@@ -1,14 +1,13 @@
-import { useState } from "react";
-
+import { lazy, Suspense, useState } from "react";
 import { Gamepad2 } from "lucide-react";
 
 import Window from "../components/Window";
-
 import StatusPill from "../components/StatusPill";
-
-import PachinkoLauncher from "../components/pachinko/PachinkoLauncher";
-
 import { GAME_PROJECTS } from "../data/games";
+
+const PachinkoLauncher = lazy(
+  () => import("../components/pachinko/PachinkoLauncher")
+);
 
 export default function GameProjects() {
   const [pachinkoOpen, setPachinkoOpen] = useState(false);
@@ -29,6 +28,7 @@ export default function GameProjects() {
                       alt={g.title}
                       className="absolute inset-0 w-full h-full object-cover"
                       loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -41,18 +41,14 @@ export default function GameProjects() {
                 </div>
 
                 <div className="flex items-start justify-between mb-3 gap-2">
-                  <span
-                    className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase"
-                  >
+                  <span className="font-mono text-[9px] tracking-widest text-muted-foreground uppercase">
                     {g.genre.join(", ")}
                   </span>
 
                   <StatusPill status={g.status} />
                 </div>
 
-                <h3
-                  className="text-base font-semibold mb-2 leading-snug"
-                >
+                <h3 className="text-base font-semibold mb-2 leading-snug">
                   {g.title}
                 </h3>
 
@@ -61,15 +57,11 @@ export default function GameProjects() {
                 </p>
 
                 <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
-                  <span
-                    className="font-mono text-[10px] text-muted-foreground"
-                  >
+                  <span className="font-mono text-[10px] text-muted-foreground">
                     {g.engine}
                   </span>
 
-                  <span
-                    className="font-mono text-[10px] text-muted-foreground"
-                  >
+                  <span className="font-mono text-[10px] text-muted-foreground">
                     {g.team} · {g.duration}
                   </span>
                 </div>
@@ -115,10 +107,14 @@ export default function GameProjects() {
         </div>
       </Window>
 
-      <PachinkoLauncher
-        isOpen={pachinkoOpen}
-        onClose={() => setPachinkoOpen(false)}
-      />
+      {pachinkoOpen && (
+        <Suspense fallback={null}>
+          <PachinkoLauncher
+            isOpen
+            onClose={() => setPachinkoOpen(false)}
+          />
+        </Suspense>
+      )}
     </section>
   );
 }
